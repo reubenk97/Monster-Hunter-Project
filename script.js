@@ -1,4 +1,9 @@
 var pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search']
+var renderedSmall = false;
+var renderedLarge = false;
+var renderedElder = false;
+
+var missingMonsters = [];
 
 function changePage(id) {
     for(let i = 0; i < pages.length;i++) {
@@ -6,12 +11,15 @@ function changePage(id) {
             document.querySelector(`#${id}`).style.display = 'block';
             if(pages[i] === 'small-monsters') {
                 document.querySelector(`#nav-small`).style.backgroundColor = '#677583';
+                getMonsters('small');
             }
             else if(pages[i] === 'large-monsters') {
                 document.querySelector(`#nav-large`).style.backgroundColor = '#677583';
+                getMonsters('large');
             }
             else if(pages[i] === 'elder-monsters') {
                 document.querySelector(`#nav-elder`).style.backgroundColor = '#677583';
+                getMonsters('elder');
             }
         }
         else {
@@ -29,14 +37,19 @@ function changePage(id) {
     }
 }
 
-async function getSmallMonsters() {
+async function getMonsters(size) {
     let response = await fetch("https://mhw-db.com/monsters");
     let monsterList = await response.json();
-    let smallElem = document.querySelector('#small-monster-list');
+    let elem = document.querySelector(`#${size}-monster-list`);
+
+    // Prevent page from rendering extra tiles. Variables set to true at end of function.
+    if(renderedSmall === true && size === 'small' || renderedLarge === true && size === 'large' || renderedElder === true && size === 'elder') {
+        return;
+    }
 
     for(let i = 0; i < monsterList.length; i++) {
-        if(monsterList[i].type === 'small') {
-            let iconSrc = 'assets/' + monsterList[i].name.toLowerCase() + '.png';
+        if(monsterList[i].type === size && monsterList[i].species != 'elder dragon' || size === 'elder' && monsterList[i].species === 'elder dragon') {
+            let iconSrc = "assets/" + monsterList[i].name.toLowerCase() + ".png";
             let monstLoc = [];
             let monstRes = [];
             let monstWk = [];
@@ -70,10 +83,10 @@ async function getSmallMonsters() {
             
             
 
-            smallElem.innerHTML += `
+            elem.innerHTML += `
             <div class="small-item flex align-center gap-3">
-                <img src='${iconSrc}' alt='Monster Icon'>
-                <p>${monsterList[i].name.toUpperCase()}</p>
+                <img src="${iconSrc}" alt="Monster Icon">
+                <p>${monsterList[i].name.toUpperCase()} + ${monsterList[i].id}</p>
                 <P>${monstLoc}</p>
                 <p class="small-res flex">RES: ${monstRes}</p>
                 <p class="small-wk flex">WEAK: ${monstWk}</p>
@@ -81,6 +94,12 @@ async function getSmallMonsters() {
             `
         }
     }
-}
 
-getSmallMonsters();
+    // Prevent page from rendering extra tiles.
+    if(size === 'small')
+        renderedSmall = true;
+    else if(size === 'large')
+        renderedLarge = true;
+    else if(size === 'elder')
+        renderedElder = true;
+}
