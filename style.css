@@ -1,0 +1,141 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Khand", sans-serif;
+}
+
+
+
+/* Generic CSS */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.fl-1 {
+    flex: 1;
+}
+
+.fl-2 {
+    flex: 2;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-even {
+    justify-content: space-evenly;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-base {
+    align-items: baseline;
+}
+
+.gap-1 {
+    gap: 0.5rem;
+}
+
+.gap-2 {
+    gap: 1rem;
+}
+
+.gap-3 {
+    gap: 2rem;
+}
+
+.gap-4 {
+    gap: 3rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    background-color: #5d6a77;
+}
+
+/* Navbar */
+nav {
+    background-color: lightslategrey;
+    height: 10vh;
+    text-wrap: nowrap;
+}
+
+#nav-home img {
+    height: 2.5rem;
+}
+
+#nav-home h1 {
+    font-size: 3.5rem;
+    font-weight: normal;
+}
+
+#search-bar {
+    border: 2px solid black;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    width: 30%;
+    background-color: #cccbcb;
+}
+
+#search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: inherit;
+}
+
+#search-bar img {
+    height: 1.5rem;
+}
+
+nav ul {
+    font-size: 1.5rem;
+}
+
+nav ul li {
+    padding: 2rem;
+    cursor: pointer;
+}
+
+nav ul li:hover {
+    filter: brightness(80%);
+    background-color: #677583;
+    transition: all 200ms ease-in-out;
+}
+
+
+
+/* Main */
+main {
+    margin: 0 10%;
+}
+
+#home {
+    height: 90vh;
+}
+
+#home img {
+    width: 100%;
+    opacity: 70%;
+}
