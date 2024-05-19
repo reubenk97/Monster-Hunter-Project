@@ -13,7 +13,7 @@
         <!-- Navbar -->
         <nav class="flex justify-around align-center">
             <!-- Home Page Icon/Name -->
-            <div id="nav-home" class="flex align-base gap-2">
+            <div id="nav-home" class="flex align-center gap-2" onclick="changePage('home')">
                 <img src="assets/azure-rathalos.png" alt="Home Icon">
                 <h1>MONSTERS 101</h1>
             </div>
@@ -24,9 +24,9 @@
             </div>
             <!-- Links -->
             <ul class="flex align-center">
-                <li>SMALL</li>
-                <li>LARGE</li>
-                <li>ELDER</li>
+                <li onclick="changePage('small-monsters')">SMALL</li>
+                <li onclick="changePage('large-monsters')">LARGE</li>
+                <li onclick="changePage('elder-monsters')">ELDER</li>
             </ul>
         </nav>
 
@@ -35,11 +35,34 @@
             <!-- Home Page -->
             <div id="home">
                 <img src="assets/fatalis.jpg" alt="Fatalis">
-                <p>Welcome to Monsters 101! This page is dedicated to helping Monster Hunter: World players quickly look up monsters and see information about them. The site is under construction for the time being!</p>
+                <p>Welcome to Monsters 101! This page is dedicated to helping Monster Hunter: World players quickly look up monsters and see information about them. The site is currently under construction!</p>
             </div>
 
             <!-- Small Monsters Page -->
-            <div id="small-monsters"></div>
+            <div id="small-monsters">
+                <!-- Filters -->
+
+                <!-- Headers -->
+                <ul id="small-list-headers" class="flex align-center justify-around">
+                    <li>ICON</li>
+                    <li>LOCATION</li>
+                    <li>NAME</li>
+                    <li>STRENGTHS</li>
+                    <li>WEAKNESSES</li>
+                </ul>
+                <!-- Items -->
+                <div class="small-monster-list flex-col gap-2">
+                    <div class="small-item flex justify-between align-center">
+                        <p>Apceros</p>
+                    </div>
+                    <div class="small-item flex justify-between align-center">
+                        <p>asdfasef</p>
+                    </div>
+                    <div class="small-item flex justify-between align-center">
+                        <p>fwefwef</p>
+                    </div>
+                </div>
+            </div>
 
             <!-- Large Monsters Page -->
             <div id="large-monsters"></div>
