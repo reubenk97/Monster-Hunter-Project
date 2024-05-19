@@ -24,9 +24,9 @@
             </div>
             <!-- Links -->
             <ul class="flex align-center">
-                <li onclick="changePage('small-monsters')">SMALL</li>
-                <li onclick="changePage('large-monsters')">LARGE</li>
-                <li onclick="changePage('elder-monsters')">ELDER</li>
+                <li id="nav-small" onclick="changePage('small-monsters')">SMALL</li>
+                <li id="nav-large" onclick="changePage('large-monsters')">LARGE</li>
+                <li id="nav-elder" onclick="changePage('elder-monsters')">ELDER</li>
             </ul>
         </nav>
 
@@ -43,25 +43,27 @@
                 <!-- Filters -->
 
                 <!-- Headers -->
-                <ul id="small-list-headers" class="flex align-center justify-around">
-                    <li>ICON</li>
-                    <li>LOCATION</li>
-                    <li>NAME</li>
-                    <li>STRENGTHS</li>
-                    <li>WEAKNESSES</li>
+                <ul id="small-list-headers" class="flex align-center justify-between">
+                    <li>SMALL MONSTERS</li>
+                    <li class="flex align-center gap-1">
+                        <label for="small-filters">FILTER BY:</label>
+                        <select id="small-filters">
+                            <option>Location</option>
+                            <option>Resistances</option>
+                            <option>Name: A-Z</option>
+                            <option>Name: Z-A</option>
+                        </select>
+                        <!-- <div class="filter-dflt">None</div>
+                        <div class="filter-items">
+                            <div>Location</div>
+                            <div>Resistances</div>
+                            <div>Name:A-Z</div>
+                            <div>Name:Z-A</div>
+                        </div> -->
+                    </li>
                 </ul>
                 <!-- Items -->
-                <div class="small-monster-list flex-col gap-2">
-                    <div class="small-item flex justify-between align-center">
-                        <p>Apceros</p>
-                    </div>
-                    <div class="small-item flex justify-between align-center">
-                        <p>asdfasef</p>
-                    </div>
-                    <div class="small-item flex justify-between align-center">
-                        <p>fwefwef</p>
-                    </div>
-                </div>
+                <div id="small-monster-list" class="flex-col gap-2"></div>
             </div>
 
             <!-- Large Monsters Page -->

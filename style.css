@@ -79,6 +79,7 @@ nav {
     background-color: lightslategrey;
     text-wrap: nowrap;
     box-shadow: 0px 0px 10px black;
+    font-weight: bold;
 }
 
 #nav-home {
@@ -91,7 +92,6 @@ nav {
 
 #nav-home h1 {
     font-size: 3.5rem;
-    font-weight: normal;
     padding-top: 5px;
 }
 
@@ -132,7 +132,7 @@ nav ul li {
 nav ul li:hover {
     filter: brightness(80%);
     background-color: #677583;
-    transition: all 200ms ease-in-out;
+    transition: all 200ms ease-out;
 }
 
 
@@ -171,6 +171,13 @@ main {
     padding: 1rem;
 }
 
+#small-list-headers select {
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    background-color: #5d6a77;
+}
+
 #small-monsters {
     display: none;
 }
@@ -178,5 +185,30 @@ main {
 .small-item {
     border: 3px outset black;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.small-item p {
+    width: 20%;
+}
+.small-item img {
+    height: 5rem;
+}
+
+.small-item:hover {
+    filter: brightness(90%);
+    background-color: #424b53;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+}
+
+.small-res {
+    padding: 1rem 2rem 1rem 0;
+    color: #4d0101;
+}
+
+.small-wk {
+    padding: 1rem 2rem 1rem 0;
+    color: green;
 }
