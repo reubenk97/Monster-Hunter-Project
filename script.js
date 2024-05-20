@@ -1,9 +1,9 @@
-var pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search']
-var renderedSmall = false;
-var renderedLarge = false;
-var renderedElder = false;
+let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search']
+let renderedSmall = false;
+let renderedLarge = false;
+let renderedElder = false;
 
-var missingMonsters = [];
+let missingMonsters = [];
 
 function changePage(id) {
     for(let i = 0; i < pages.length;i++) {
@@ -49,7 +49,7 @@ async function getMonsters(size) {
 
     for(let i = 0; i < monsterList.length; i++) {
         if(monsterList[i].type === size && monsterList[i].species != 'elder dragon' || size === 'elder' && monsterList[i].species === 'elder dragon') {
-            let iconSrc = "assets/" + monsterList[i].name.toLowerCase() + ".png";
+            let iconSrc = "assets/icons/" + monsterList[i].name.toLowerCase() + ".png";
             let monstLoc = [];
             let monstRes = [];
             let monstWk = [];

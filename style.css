@@ -79,9 +79,12 @@ body {
 /* Navbar */
 nav {
     background-color: lightslategrey;
+    color: burlywood;
     text-wrap: nowrap;
-    box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 10px white;
     font-weight: bold;
+    position: fixed;
+    width: 100%;
 }
 
 #nav-home {
@@ -99,11 +102,10 @@ nav {
 
 #search-bar {
     border-radius: 4rem;
-    box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 10px white;
     padding: 0.75rem 1rem;
     width: 40%;
     background-color: #677583;
-    color: black;
 }
 
 #search-bar input {
@@ -111,12 +113,12 @@ nav {
     outline: none;
     width: 100%;
     background-color: inherit;
-    color: black;
+    color: burlywood;
     font-size: 1.5rem;
 }
 
 #search-bar input::placeholder {
-    color: black;
+    color: burlywood;
 }
 
 #search-bar img {
@@ -143,6 +145,7 @@ nav ul li:hover {
 /* Main */
 main {
     margin: 0 10%;
+    padding-top: 10vh;
 }
 
 /* Home */
@@ -155,11 +158,11 @@ main {
 }
 
 #home p {
-    border-top: 2px dashed white;
-    border-bottom: 2px dashed white;
+    border-top: 2px dashed burlywood;
+    border-bottom: 2px dashed burlywood;
+    color: burlywood;
     width: 750px;
     font-size: 3rem;
-    color: white;
     position: relative;
     bottom: 60%;
     left: 25%;
@@ -167,17 +170,24 @@ main {
 
 /* Small Monsters */
 .list-headers {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid burlywood;
+    color: burlywood;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     padding: 1rem;
 }
 
 .list-headers select {
-    border: 2px solid black;
+    border: 2px solid burlywood;
+    color: burlywood;
     border-radius: 5px;
     font-size: 1.5rem;
     background-color: #5d6a77;
+    outline: none;
+}
+
+.list-headers option {
+    color: burlywood;
 }
 
 #small-monsters {
@@ -185,8 +195,10 @@ main {
 }
 
 .small-item {
-    border: 3px outset black;
+    border: 3px outset white;
     border-radius: 1rem;
+    background-color: burlywood;
+    color: white;
     padding: 1rem;
     font-size: 1.5rem;
 }
@@ -200,14 +212,14 @@ main {
 
 .small-item:hover {
     filter: brightness(90%);
-    background-color: #424b53;
+    background-color: lightslategray;
     transition: all 200ms ease-out;
     cursor: pointer;
 }
 
 .small-res {
     padding: 1rem 2rem 1rem 0;
-    color: #4d0101;
+    color: #af0101;
 }
 
 .small-wk {
