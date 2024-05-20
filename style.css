@@ -71,50 +71,52 @@ ul {
 }
 
 body {
-    background-color: #5d6a77;
+    background-color: darkslategray;
 }
 
 
 
 /* Navbar */
 nav {
-    background-color: lightslategrey;
+    background-color: darkslategray;
     color: burlywood;
     text-wrap: nowrap;
-    box-shadow: 0px 0px 10px white;
+    border-bottom: 1px solid burlywood;
     font-weight: bold;
     position: fixed;
     width: 100%;
+    padding: 0.5rem 0;
 }
 
 #nav-home {
     cursor: pointer;
+    padding: 0 0.5rem;
 }
 
 #nav-home img {
-    height: 2.5rem;
+    display: none;
+    height: 2rem;
 }
 
 #nav-home h1 {
-    font-size: 3.5rem;
+    font-size: 2rem;
     padding-top: 5px;
 }
 
 #search-bar {
     border-radius: 4rem;
-    box-shadow: 0px 0px 10px white;
-    padding: 0.75rem 1rem;
-    width: 40%;
-    background-color: #677583;
+    padding: 0.5rem;
+    background-color: darkslategray;
 }
 
 #search-bar input {
+    display: none;
     border: none;
     outline: none;
     width: 100%;
     background-color: inherit;
     color: burlywood;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 #search-bar input::placeholder {
@@ -125,21 +127,37 @@ nav {
     height: 1.5rem;
 }
 
-nav ul {
-    font-size: 2rem;
+#nav-links {
+    display: none;
+    font-size: 1rem;
+    position: absolute;
+    right: 0;
+    top: 4.4rem;
+    width: 100%;
+    text-align: center;
+    background-color: darkslategray;
+    border-bottom: 1px solid burlywood;
 }
 
-nav ul li {
-    padding: 1.5rem 2rem;
+#nav-links li {
+    padding: 1rem 2rem;
     cursor: pointer;
-}
-
-nav ul li:hover {
-    filter: brightness(80%);
-    background-color: #677583;
     transition: all 200ms ease-out;
 }
 
+#nav-links li:hover {
+    filter: brightness(80%);
+    background-color: darkslategray;
+}
+
+/* Hamburger Menu */
+nav div p {
+    background-color: burlywood;
+    border-radius: 5px;
+    width: 1.5rem;
+    height: .25rem;
+    margin: .25rem;
+}
 
 
 /* Main */
@@ -149,23 +167,20 @@ main {
 }
 
 /* Home */
-#home {
-    height: 90vh;
-}
-
 #home img {
     width: 100%;
+    /* height: 100%; */
+    /* object-fit: contain; */
 }
 
 #home p {
     border-top: 2px dashed burlywood;
     border-bottom: 2px dashed burlywood;
     color: burlywood;
-    width: 750px;
-    font-size: 3rem;
+    font-size: 2rem;
     position: relative;
     bottom: 60%;
-    left: 25%;
+    /* left: 25%; */
 }
 
 /* Small Monsters */
@@ -177,17 +192,21 @@ main {
     padding: 1rem;
 }
 
+.list-headers span {
+    color: white;
+}
+
 .list-headers select {
     border: 2px solid burlywood;
-    color: burlywood;
+    color: white;
     border-radius: 5px;
     font-size: 1.5rem;
-    background-color: #5d6a77;
+    background-color: darkslategray;
     outline: none;
 }
 
 .list-headers option {
-    color: burlywood;
+    color: white;
 }
 
 #small-monsters {
@@ -195,10 +214,10 @@ main {
 }
 
 .small-item {
-    border: 3px outset white;
+    border: 3px outset burlywood;
     border-radius: 1rem;
-    background-color: burlywood;
-    color: white;
+    background-color: darkslategray;
+    color: burlywood;
     padding: 1rem;
     font-size: 1.5rem;
 }
@@ -211,20 +230,19 @@ main {
 }
 
 .small-item:hover {
-    filter: brightness(90%);
-    background-color: lightslategray;
-    transition: all 200ms ease-out;
+    filter: brightness(80%);
+    transition: all 200ms ease-in;
     cursor: pointer;
 }
 
 .small-res {
     padding: 1rem 2rem 1rem 0;
-    color: #af0101;
+    color: #ffa733;
 }
 
 .small-wk {
     padding: 1rem 2rem 1rem 0;
-    color: green;
+    color: #02ff02;
 }
 
 #large-monsters {

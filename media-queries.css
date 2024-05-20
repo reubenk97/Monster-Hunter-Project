@@ -1,0 +1,47 @@
+/* Tablet Viewport 768px */
+@media (min-width: 40rem) {
+    #nav-home img {
+        display: block;
+    }
+    
+    #search-bar {
+        width: 40%;
+        padding: 0.5rem 1rem;
+        box-shadow: 0px 0px 5px white;
+    }
+
+    #search-bar input {
+        display: flex;
+    }
+}
+
+/* Laptop Viewports 1024px */
+@media (min-width: 64rem) {
+    nav {
+        padding: 0;
+    }
+
+    #ham-menu {
+        display: none;
+    }
+
+    #nav-home img {
+        height: 2.5rem;
+    }
+    
+    #nav-home h1 {
+        font-size: 2.5rem;
+    }
+    
+    #search-bar {
+        margin: 0 10px;
+    }
+
+    #nav-links {
+        display: flex;
+        position: initial;
+        width: auto;
+        border: none;
+        font-size: 1.5rem;
+    }
+}

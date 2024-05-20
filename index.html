@@ -8,6 +8,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&family=Neucha&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="media-queries.css">
     </head>
     <body>
         <!-- Navbar -->
@@ -23,11 +24,16 @@
                 <img src="assets/search.png" alt="Search Icon">
             </div>
             <!-- Links -->
-            <ul class="flex align-center">
+            <ul id="nav-links" class="flex align-center">
                 <li id="nav-small" onclick="changePage('small-monsters')">SMALL</li>
                 <li id="nav-large" onclick="changePage('large-monsters')">LARGE</li>
                 <li id="nav-elder" onclick="changePage('elder-monsters')">ELDER</li>
             </ul>
+            <div id="ham-menu" onclick="viewLinks()">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
         </nav>
 
         <!-- Main Content -->
@@ -35,21 +41,41 @@
             <!-- Home Page -->
             <div id="home">
                 <img src="assets/fatalis.jpg" alt="Fatalis">
-                <p>Welcome to Monsters 101! This page is dedicated to helping Monster Hunter: World players quickly look up monsters and see information about them. The site is currently under construction!</p>
+                <!-- <p>Welcome to Monsters 101! This page is dedicated to helping Monster Hunter: World players quickly look up monsters and see information about them. The site is currently under construction!</p> -->
             </div>
 
             <!-- Small Monsters Page -->
             <div id="small-monsters">
                 <!-- Headers -->
                 <ul class="list-headers flex align-center justify-between">
-                    <li>SMALL MONSTERS</li>
+                    <li><span>SMALL</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
                         <label for="filters">FILTER BY:</label>
                         <select class="filters">
-                            <option>Location</option>
-                            <option>Resistances</option>
-                            <option>Name: A-Z</option>
-                            <option>Name: Z-A</option>
+                            <option>NONE</option>
+                            <optgroup label="WEAKNESSES">
+                                <option>FIRE</option>
+                                <option>WATER</option>
+                                <option>THUNDER</option>
+                                <option>ICE</option>
+                                <option>DRAGON</option>
+                                <option>POISON</option>
+                                <option>PARALYSIS</option>
+                                <option>SLEEP</option>
+                                <option>BLAST</option>
+                                <option>STUN</option>
+                            </optgroup>
+                            <optgroup label="LOCATION">
+                                <option>ANCIENT FOREST</option>
+                                <option>WILDSPIRE WASTE</option>
+                                <option>CORAL HIGHLANDS</option>
+                                <option>ROTTEN VALE</option>
+                                <option>ELDER'S RECESS</option>
+                            </optgroup>
+                            <optgroup label="NAME">
+                                <option>ALPHA (A-Z)</option>
+                                <option>ALPHA (Z-A)</option>
+                            </optgroup>
                         </select>
                     </li>
                 </ul>
@@ -61,14 +87,34 @@
             <div id="large-monsters">
                 <!-- Headers -->
                 <ul class="list-headers flex align-center justify-between">
-                    <li>LARGE MONSTERS</li>
+                    <li><span>LARGE</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
                         <label for="filters">FILTER BY:</label>
                         <select class="filters">
-                            <option>Location</option>
-                            <option>Resistances</option>
-                            <option>Name: A-Z</option>
-                            <option>Name: Z-A</option>
+                            <option>NONE</option>
+                            <optgroup label="WEAKNESSES">
+                                <option>FIRE</option>
+                                <option>WATER</option>
+                                <option>THUNDER</option>
+                                <option>ICE</option>
+                                <option>DRAGON</option>
+                                <option>POISON</option>
+                                <option>PARALYSIS</option>
+                                <option>SLEEP</option>
+                                <option>BLAST</option>
+                                <option>STUN</option>
+                            </optgroup>
+                            <optgroup label="LOCATION">
+                                <option>ANCIENT FOREST</option>
+                                <option>WILDSPIRE WASTE</option>
+                                <option>CORAL HIGHLANDS</option>
+                                <option>ROTTEN VALE</option>
+                                <option>ELDER'S RECESS</option>
+                            </optgroup>
+                            <optgroup label="NAME">
+                                <option>ALPHA (A-Z)</option>
+                                <option>ALPHA (Z-A)</option>
+                            </optgroup>
                         </select>
                     </li>
                 </ul>
@@ -80,14 +126,34 @@
             <div id="elder-monsters">
                 <!-- Headers -->
                 <ul class="list-headers flex align-center justify-between">
-                    <li>ELDER MONSTERS</li>
+                    <li><span>ELDER</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
                         <label for="filters">FILTER BY:</label>
                         <select class="filters">
-                            <option>Location</option>
-                            <option>Resistances</option>
-                            <option>Name: A-Z</option>
-                            <option>Name: Z-A</option>
+                            <option>NONE</option>
+                            <optgroup label="WEAKNESSES">
+                                <option>FIRE</option>
+                                <option>WATER</option>
+                                <option>THUNDER</option>
+                                <option>ICE</option>
+                                <option>DRAGON</option>
+                                <option>POISON</option>
+                                <option>PARALYSIS</option>
+                                <option>SLEEP</option>
+                                <option>BLAST</option>
+                                <option>STUN</option>
+                            </optgroup>
+                            <optgroup label="LOCATION">
+                                <option>ANCIENT FOREST</option>
+                                <option>WILDSPIRE WASTE</option>
+                                <option>CORAL HIGHLANDS</option>
+                                <option>ROTTEN VALE</option>
+                                <option>ELDER'S RECESS</option>
+                            </optgroup>
+                            <optgroup label="NAME">
+                                <option>ALPHA (A-Z)</option>
+                                <option>ALPHA (Z-A)</option>
+                            </optgroup>
                         </select>
                     </li>
                 </ul>

@@ -10,28 +10,28 @@ function changePage(id) {
         if(id === pages[i]) {
             document.querySelector(`#${id}`).style.display = 'block';
             if(pages[i] === 'small-monsters') {
-                document.querySelector(`#nav-small`).style.backgroundColor = '#677583';
+                document.querySelector(`#nav-small`).style.backgroundColor = '#253d3d';
                 getMonsters('small');
             }
             else if(pages[i] === 'large-monsters') {
-                document.querySelector(`#nav-large`).style.backgroundColor = '#677583';
+                document.querySelector(`#nav-large`).style.backgroundColor = '#253d3d';
                 getMonsters('large');
             }
             else if(pages[i] === 'elder-monsters') {
-                document.querySelector(`#nav-elder`).style.backgroundColor = '#677583';
+                document.querySelector(`#nav-elder`).style.backgroundColor = '#253d3d';
                 getMonsters('elder');
             }
         }
         else {
             document.querySelector(`#${pages[i]}`).style.display = 'none';
             if(pages[i] === 'small-monsters') {
-                document.querySelector(`#nav-small`).style.backgroundColor = 'lightslategray';
+                document.querySelector(`#nav-small`).style.backgroundColor = 'darkslategray';
             }
             else if(pages[i] === 'large-monsters') {
-                document.querySelector(`#nav-large`).style.backgroundColor = 'lightslategray';
+                document.querySelector(`#nav-large`).style.backgroundColor = 'darkslategray';
             }
             else if(pages[i] === 'elder-monsters') {
-                document.querySelector(`#nav-elder`).style.backgroundColor = 'lightslategray';
+                document.querySelector(`#nav-elder`).style.backgroundColor = 'darkslategray';
             }
         }
     }
@@ -103,3 +103,23 @@ async function getMonsters(size) {
     else if(size === 'elder')
         renderedElder = true;
 }
+
+function viewLinks() {
+    let e = document.querySelector('#nav-links');
+    if(e.style.display === 'block') {
+        e.style.display = 'none';
+    }
+    else {
+        e.style.display = 'block';
+    }
+}
+
+
+onresize = (event) => {
+    if(window.innerWidth >= 1024) {
+        document.querySelector('#nav-links').style.display = 'flex';
+    }
+    else{
+        document.querySelector('#nav-links').style.display = 'none';
+    }
+};
