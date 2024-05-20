@@ -23,13 +23,16 @@
                 <input type="text" placeholder="Search">
                 <img src="assets/search.png" alt="Search Icon">
             </div>
+            <!-- Search Icon for Mobile -->
+            <img id="mob-search" src="assets/search.png" alt="Search Icon" onclick="viewLinks('search-bar')">
             <!-- Links -->
             <ul id="nav-links" class="flex align-center">
                 <li id="nav-small" onclick="changePage('small-monsters')">SMALL</li>
                 <li id="nav-large" onclick="changePage('large-monsters')">LARGE</li>
                 <li id="nav-elder" onclick="changePage('elder-monsters')">ELDER</li>
             </ul>
-            <div id="ham-menu" onclick="viewLinks()">
+            <!-- Hamburger Menu for Mobile/Tablet -->
+            <div id="ham-menu" onclick="viewLinks('nav-links')">
                 <p></p>
                 <p></p>
                 <p></p>

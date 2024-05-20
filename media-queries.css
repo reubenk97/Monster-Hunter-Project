@@ -1,13 +1,25 @@
-/* Tablet Viewport 768px */
+/* Tablet Viewport 768px (Pushed down to 640px)*/
 @media (min-width: 40rem) {
     #nav-home img {
         display: block;
     }
-    
+
     #search-bar {
         width: 40%;
+        border: none;
+        border-radius: 4rem;
         padding: 0.5rem 1rem;
         box-shadow: 0px 0px 5px white;
+        display: flex;
+        position: initial;
+    }
+
+    #search-bar img {
+        position: initial;
+    }
+
+    #mob-search {
+        display: none;
     }
 
     #search-bar input {
@@ -18,7 +30,7 @@
 /* Laptop Viewports 1024px */
 @media (min-width: 64rem) {
     nav {
-        padding: 0;
+        padding: 0rem;
     }
 
     #ham-menu {
@@ -37,11 +49,19 @@
         margin: 0 10px;
     }
 
+    #search-bar input {
+        font-size: 1.5rem;
+    }
+
     #nav-links {
         display: flex;
         position: initial;
         width: auto;
         border: none;
         font-size: 1.5rem;
+    }
+
+    #nav-links li {
+        padding: 1.5rem 2rem;
     }
 }

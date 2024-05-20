@@ -103,14 +103,24 @@ nav {
     padding-top: 5px;
 }
 
+/* Search Bar */
+#mob-search {
+    height: 1.5rem;
+    cursor: pointer;
+}
+
 #search-bar {
-    border-radius: 4rem;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 4.4rem;
+    width: 100%;
     padding: 0.5rem;
     background-color: darkslategray;
+    border-bottom: 1px solid burlywood;
 }
 
 #search-bar input {
-    display: none;
     border: none;
     outline: none;
     width: 100%;
@@ -124,9 +134,12 @@ nav {
 }
 
 #search-bar img {
+    position: relative;
+    right: 2rem;
     height: 1.5rem;
 }
 
+/* Nav Links */
 #nav-links {
     display: none;
     font-size: 1rem;
@@ -137,6 +150,7 @@ nav {
     text-align: center;
     background-color: darkslategray;
     border-bottom: 1px solid burlywood;
+    z-index: -1;
 }
 
 #nav-links li {
