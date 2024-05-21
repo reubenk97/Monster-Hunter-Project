@@ -84,12 +84,17 @@ async function getMonsters(size) {
 
 
             elem.innerHTML += `
-            <div class="monster-tile flex align-center gap-3" onclick="viewMonster('${monsterList[i].name}')">
-                <img src="${iconSrc}" alt="Monster Icon">
-                <p>${monsterList[i].name.toUpperCase()}</p>
-                <P>${monstLoc}</p>
-                <p class="monster-res flex">RES: ${monstRes}</p>
-                <p class="monster-wk flex">WEAK: ${monstWk}</p>
+            <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                <div class='col-bio'>
+                    <img src="${iconSrc}" alt="Monster Icon">
+                    <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                    <P class='monster-loc'>${monstLoc}</p>
+                </div>
+                <div class='col-info'>
+                    <p class="monster-res flex">RES: ${monstRes}</p>
+                    <p class="monster-wk flex">WEAK: ${monstWk}</p>
+                </div>
+                
             </div>
             `
         }
@@ -104,6 +109,8 @@ async function getMonsters(size) {
         renderedElder = true;
 }
 
+
+
 function viewItems(elem) {
     let e = document.querySelector(`${elem}`);
     if (e.style.display === 'block') {
@@ -115,6 +122,8 @@ function viewItems(elem) {
         console.log(`${elem} is showing.`);
     }
 }
+
+
 
 onresize = (event) => {
     if (window.innerWidth >= 1024) {
@@ -132,6 +141,8 @@ onresize = (event) => {
         document.querySelector('.filter-list').style.display = 'none';
     }
 };
+
+
 
 function viewMonster(name) {
     let elem = document.querySelector('#monster-page');

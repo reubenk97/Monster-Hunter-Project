@@ -1,4 +1,4 @@
-/* Tablet Viewport 768px (Pushed down to 640px)*/
+/* Breakpoint 640px*/
 @media (min-width: 40rem) {
     #nav-home img {
         display: block;
@@ -35,7 +35,38 @@
         position: initial;
         border: none;
     }
+
+    .monster-tile {
+        gap: 1rem;
+        font-size: 1.25rem;
+    }
+
+    .monster-tile img {
+        height: 5rem;
+    }
+    
+    .col-bio {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        width: auto;
+        text-wrap: nowrap;
+    }
+
+    .col-info {
+        gap: 1rem;
+        flex-direction: row;
+    }
 }
+
+/* Next increase in font size */
+@media (min-width: 808px) {
+    .monster-tile {
+        font-size: 1.5rem;
+    }
+}
+
 
 /* Laptop Viewports 1024px */
 @media (min-width: 64rem) {
@@ -75,5 +106,3 @@
         padding: 1.5rem 2rem;
     }
 }
-
-/* 1268px min for every tile to line up */

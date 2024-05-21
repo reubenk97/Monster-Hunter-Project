@@ -252,21 +252,28 @@ main {
     display: none;
 }
 
+/* Monster Tile */
 .monster-tile {
     border: 3px outset burlywood;
     border-radius: 1rem;
     background-color: darkslategray;
     color: burlywood;
-    padding: 1rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     overflow: hidden;
+    justify-content: space-around;
+    padding: 0.5rem;
 }
 
-.monster-tile p {
-    width: 20%;
+.col-bio, .col-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
 }
+
 .monster-tile img {
-    height: 5rem;
+    height: 3rem;
 }
 
 .monster-tile:hover {
@@ -275,12 +282,15 @@ main {
     cursor: pointer;
 }
 
+.monster-loc {
+    color: white;
+}
+
 .monster-res {
-    padding: 1rem 2rem 1rem 0;
-    color: #ffa733;
+    /* padding: 1rem 2rem 1rem 0; */
+    color: #ff7e33;
 }
 
 .monster-wk {
-    padding: 1rem 2rem 1rem 0;
     color: #02ff02;
 }
