@@ -1,4 +1,4 @@
-let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search', 'monster-page']
+let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'monster-page']
 let renderedSmall = false;
 let renderedLarge = false;
 let renderedElder = false;
@@ -10,28 +10,28 @@ function changePage(id) {
         if (id === pages[i]) {
             document.querySelector(`#${id}`).style.display = 'block';
             if (pages[i] === 'small-monsters') {
-                document.querySelector(`#nav-small`).style.backgroundColor = '#253d3d';
+                document.querySelector('#nav-small').style.backgroundColor = '#253d3d';
                 getMonsters('small');
             }
             else if (pages[i] === 'large-monsters') {
-                document.querySelector(`#nav-large`).style.backgroundColor = '#253d3d';
+                document.querySelector('#nav-large').style.backgroundColor = '#253d3d';
                 getMonsters('large');
             }
             else if (pages[i] === 'elder-monsters') {
-                document.querySelector(`#nav-elder`).style.backgroundColor = '#253d3d';
+                document.querySelector('#nav-elder').style.backgroundColor = '#253d3d';
                 getMonsters('elder');
             }
         }
         else {
             document.querySelector(`#${pages[i]}`).style.display = 'none';
             if (pages[i] === 'small-monsters') {
-                document.querySelector(`#nav-small`).style.backgroundColor = 'darkslategray';
+                document.querySelector('#nav-small').style.backgroundColor = 'darkslategray';
             }
             else if (pages[i] === 'large-monsters') {
-                document.querySelector(`#nav-large`).style.backgroundColor = 'darkslategray';
+                document.querySelector('#nav-large').style.backgroundColor = 'darkslategray';
             }
             else if (pages[i] === 'elder-monsters') {
-                document.querySelector(`#nav-elder`).style.backgroundColor = 'darkslategray';
+                document.querySelector('#nav-elder').style.backgroundColor = 'darkslategray';
             }
         }
     }
@@ -144,24 +144,102 @@ onresize = (event) => {
 
 
 
-function viewMonster(name) {
+async function viewMonster(name) {
+    changePage('monster-page');
+    let response = await fetch(`https://mhw-db.com/monsters?q={"name":"${name}"}`);
+    let monsterArray = await response.json();
+    let currMonster = monsterArray[0];
+    console.log(currMonster);
     let elem = document.querySelector('#monster-page');
 
+    // Grab the monster locations and zones
+    let monsterLocs = [];
+    for(let i =0; i<currMonster.locations.length; i++) {
+        monsterLocs.push(currMonster.locations[i].name.toUpperCase() + ' (' + currMonster.locations[i].zoneCount + ')' );
+    }
+
     elem.innerHTML = `
-    <div id="left-col" class="flex-col align-center gap-3">
-        <img src='assets/icons/${name}>
+    <div class="monster-page-bio flex-col align-center">
+        <img src='assets/icons/${name}.png'>
+        <h2>${name.toUpperCase()}</h2>
         <div>
-            <h2>Class</h2>
-            <h2>Locations</h2>
+            <div class="monster-species">
+                <h3>SPECIES</h3>
+                <p>${currMonster.species.toUpperCase()}</p>
+            </div>
+            <div class="monster-locations">
+                <h3>LOCATIONS</h3>
+                <p>${monsterLocs.join(', ')}</p>
+            </div>
         </div>
     </div>
-    <div id="right-col" class="flex-col justify-between gap-3">
-        <h2>Resistances</h2>
-        <h2>Weaknesses</h2>
-        <h2>Recommended Protection</h2>
+    <div class="monster-page-info flex-col justify-between">
+        <h3>EFFECTIVENESS</h3>
+        <div class="monster-eff flex justify-around">
+            <div class="monster-eff-elements flex gap-1">
+                <ul class="elements-labels">
+                    <li>FIRE</li>
+                    <li>WATER</li>
+                    <li>THUNDER</li>
+                    <li>ICE</li>
+                    <li>DRAGON</li>
+                </ul>
+                <ul class="elements-pwr">
+                    <li class='fire'></li>
+                    <li class='water'></li>
+                    <li class='thunder'></li>
+                    <li class='ice'></li>
+                    <li class='dragon'></li>
+                </ul>
+            </div>
+            <div class="monster-eff-statuses">
+                <ul class="statuses-labels">
+                    <li>POISON</li>
+                    <li>SLEEP</li>
+                    <li>PARALYSIS</li>
+                    <li>BLAST</li>
+                    <li>STUN</li>
+                </ul>
+                <ul class="statuses-pwr">
+                    <li class='poison'></li>
+                    <li class='sleep'></li>
+                    <li class='paralysis'></li>
+                    <li class='blast'></li>
+                    <li class='stun'></li>
+                </ul>
+            </div>
+        </div>
+        <h3>RECOMMENDED PROTECTION</h3>
     </div>
     `
+
+    // Grab the monster resistances
+    let monsterRes = [];
+    for(let i =0; i<currMonster.resistances.length; i++) {
+        if(currMonster.resistances[i].condition != null) {
+            monsterRes.push(currMonster.resistances[i].element.toUpperCase() + "!");
+        }
+        else {
+            monsterRes.push(currMonster.resistances[i].element.toUpperCase());
+        }
+    }
+
+    // Place an X if the monster has resistance to that element/status
+    let docMonsterEff = ['fire','water','thunder','ice','dragon','poison','sleep','paralysis','blast','stun'];
+    for(let i = 0; i<monsterRes.length;i++) {
+        for(let j = 0; j < docMonsterEff.length; j++) {
+            if(monsterRes[i] === docMonsterEff[j].toUpperCase() + "!") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span>X</span>)';
+            }
+            else if(monsterRes[i] === docMonsterEff[j].toUpperCase()) {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span>X</span>';
+            }
+        }
+    }
     
-    changePage('monster-page');
-    console.log('yes');
+    // Grab the monster weaknesses and stars
+    let monsterWeaks = [];
+    for(let i=0;i<currMonster.weaknesses.length; i++) {
+        monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase());
+    }
 }
