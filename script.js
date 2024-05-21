@@ -158,6 +158,12 @@ async function viewMonster(name) {
         monsterLocs.push(currMonster.locations[i].name.toUpperCase() + ' (' + currMonster.locations[i].zoneCount + ')' );
     }
 
+    // Grab monster ailments
+    let monsterAilments = [];
+    for(let i=0;i<currMonster.ailments.length;i++) {
+        monsterAilments.push(currMonster.ailments[i].name.toUpperCase());
+    }
+
     elem.innerHTML = `
     <div class="monster-page-bio flex-col align-center">
         <img src='assets/icons/${name}.png'>
@@ -209,7 +215,8 @@ async function viewMonster(name) {
                 </ul>
             </div>
         </div>
-        <h3>RECOMMENDED PROTECTION</h3>
+        <h3>DANGER: MONSTER AILMENTS</h3>
+        <p class="monster-ailments">${monsterAilments.join(', ')}</p>
     </div>
     `
 
