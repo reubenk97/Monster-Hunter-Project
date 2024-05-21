@@ -24,7 +24,7 @@
                 <img src="assets/search.png" alt="Search Icon">
             </div>
             <!-- Search Icon for Mobile -->
-            <img id="mob-search" src="assets/search.png" alt="Search Icon" onclick="viewLinks('search-bar')">
+            <img id="mob-search" src="assets/search.png" alt="Search Icon" onclick="viewItems('#search-bar')">
             <!-- Links -->
             <ul id="nav-links" class="flex align-center">
                 <li id="nav-small" onclick="changePage('small-monsters')">SMALL</li>
@@ -32,7 +32,7 @@
                 <li id="nav-elder" onclick="changePage('elder-monsters')">ELDER</li>
             </ul>
             <!-- Hamburger Menu for Mobile/Tablet -->
-            <div id="ham-menu" onclick="viewLinks('nav-links')">
+            <div id="ham-menu" onclick="viewItems('#nav-links')">
                 <p></p>
                 <p></p>
                 <p></p>
@@ -53,33 +53,36 @@
                 <ul class="list-headers flex align-center justify-between">
                     <li><span>SMALL</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
-                        <label for="filters">FILTER BY:</label>
-                        <select class="filters">
-                            <option>NONE</option>
-                            <optgroup label="WEAKNESSES">
-                                <option>FIRE</option>
-                                <option>WATER</option>
-                                <option>THUNDER</option>
-                                <option>ICE</option>
-                                <option>DRAGON</option>
-                                <option>POISON</option>
-                                <option>PARALYSIS</option>
-                                <option>SLEEP</option>
-                                <option>BLAST</option>
-                                <option>STUN</option>
-                            </optgroup>
-                            <optgroup label="LOCATION">
-                                <option>ANCIENT FOREST</option>
-                                <option>WILDSPIRE WASTE</option>
-                                <option>CORAL HIGHLANDS</option>
-                                <option>ROTTEN VALE</option>
-                                <option>ELDER'S RECESS</option>
-                            </optgroup>
-                            <optgroup label="NAME">
-                                <option>ALPHA (A-Z)</option>
-                                <option>ALPHA (Z-A)</option>
-                            </optgroup>
-                        </select>
+                        <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
+                        <div class="filter-list">
+                            <label for="filters">FILTER:</label>
+                            <select class="filters">
+                                <option>NONE</option>
+                                <optgroup label="WEAKNESSES">
+                                    <option>FIRE</option>
+                                    <option>WATER</option>
+                                    <option>THUNDER</option>
+                                    <option>ICE</option>
+                                    <option>DRAGON</option>
+                                    <option>POISON</option>
+                                    <option>PARALYSIS</option>
+                                    <option>SLEEP</option>
+                                    <option>BLAST</option>
+                                    <option>STUN</option>
+                                </optgroup>
+                                <optgroup label="LOCATION">
+                                    <option>ANCIENT FOREST</option>
+                                    <option>WILDSPIRE WASTE</option>
+                                    <option>CORAL HIGHLANDS</option>
+                                    <option>ROTTEN VALE</option>
+                                    <option>ELDER'S RECESS</option>
+                                </optgroup>
+                                <optgroup label="NAME">
+                                    <option>ALPHA (A-Z)</option>
+                                    <option>ALPHA (Z-A)</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </li>
                 </ul>
                 <!-- Items -->
@@ -92,33 +95,36 @@
                 <ul class="list-headers flex align-center justify-between">
                     <li><span>LARGE</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
-                        <label for="filters">FILTER BY:</label>
-                        <select class="filters">
-                            <option>NONE</option>
-                            <optgroup label="WEAKNESSES">
-                                <option>FIRE</option>
-                                <option>WATER</option>
-                                <option>THUNDER</option>
-                                <option>ICE</option>
-                                <option>DRAGON</option>
-                                <option>POISON</option>
-                                <option>PARALYSIS</option>
-                                <option>SLEEP</option>
-                                <option>BLAST</option>
-                                <option>STUN</option>
-                            </optgroup>
-                            <optgroup label="LOCATION">
-                                <option>ANCIENT FOREST</option>
-                                <option>WILDSPIRE WASTE</option>
-                                <option>CORAL HIGHLANDS</option>
-                                <option>ROTTEN VALE</option>
-                                <option>ELDER'S RECESS</option>
-                            </optgroup>
-                            <optgroup label="NAME">
-                                <option>ALPHA (A-Z)</option>
-                                <option>ALPHA (Z-A)</option>
-                            </optgroup>
-                        </select>
+                        <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
+                        <div class="filter-list">
+                            <label for="filters">FILTER:</label>
+                            <select class="filters">
+                                <option>NONE</option>
+                                <optgroup label="WEAKNESSES">
+                                    <option>FIRE</option>
+                                    <option>WATER</option>
+                                    <option>THUNDER</option>
+                                    <option>ICE</option>
+                                    <option>DRAGON</option>
+                                    <option>POISON</option>
+                                    <option>PARALYSIS</option>
+                                    <option>SLEEP</option>
+                                    <option>BLAST</option>
+                                    <option>STUN</option>
+                                </optgroup>
+                                <optgroup label="LOCATION">
+                                    <option>ANCIENT FOREST</option>
+                                    <option>WILDSPIRE WASTE</option>
+                                    <option>CORAL HIGHLANDS</option>
+                                    <option>ROTTEN VALE</option>
+                                    <option>ELDER'S RECESS</option>
+                                </optgroup>
+                                <optgroup label="NAME">
+                                    <option>ALPHA (A-Z)</option>
+                                    <option>ALPHA (Z-A)</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </li>
                 </ul>
                 <!-- Items -->
@@ -131,39 +137,44 @@
                 <ul class="list-headers flex align-center justify-between">
                     <li><span>ELDER</span> MONSTERS</li>
                     <li class="flex align-center gap-1">
-                        <label for="filters">FILTER BY:</label>
-                        <select class="filters">
-                            <option>NONE</option>
-                            <optgroup label="WEAKNESSES">
-                                <option>FIRE</option>
-                                <option>WATER</option>
-                                <option>THUNDER</option>
-                                <option>ICE</option>
-                                <option>DRAGON</option>
-                                <option>POISON</option>
-                                <option>PARALYSIS</option>
-                                <option>SLEEP</option>
-                                <option>BLAST</option>
-                                <option>STUN</option>
-                            </optgroup>
-                            <optgroup label="LOCATION">
-                                <option>ANCIENT FOREST</option>
-                                <option>WILDSPIRE WASTE</option>
-                                <option>CORAL HIGHLANDS</option>
-                                <option>ROTTEN VALE</option>
-                                <option>ELDER'S RECESS</option>
-                            </optgroup>
-                            <optgroup label="NAME">
-                                <option>ALPHA (A-Z)</option>
-                                <option>ALPHA (Z-A)</option>
-                            </optgroup>
-                        </select>
+                        <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
+                        <div class="filter-list">
+                            <label for="filters">FILTER:</label>
+                            <select class="filters">
+                                <option>NONE</option>
+                                <optgroup label="WEAKNESSES">
+                                    <option>FIRE</option>
+                                    <option>WATER</option>
+                                    <option>THUNDER</option>
+                                    <option>ICE</option>
+                                    <option>DRAGON</option>
+                                    <option>POISON</option>
+                                    <option>PARALYSIS</option>
+                                    <option>SLEEP</option>
+                                    <option>BLAST</option>
+                                    <option>STUN</option>
+                                </optgroup>
+                                <optgroup label="LOCATION">
+                                    <option>ANCIENT FOREST</option>
+                                    <option>WILDSPIRE WASTE</option>
+                                    <option>CORAL HIGHLANDS</option>
+                                    <option>ROTTEN VALE</option>
+                                    <option>ELDER'S RECESS</option>
+                                </optgroup>
+                                <optgroup label="NAME">
+                                    <option>ALPHA (A-Z)</option>
+                                    <option>ALPHA (Z-A)</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </li>
                 </ul>
                 <!-- Items -->
                 <div id="elder-monster-list" class="flex-col gap-2"></div>
             </div>
 
+            <!-- Individual Detailed Monster Page -->
+            <div id="monster-page" class="flex"></div>
         </main>
 
         <script src="script.js"></script>

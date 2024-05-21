@@ -1,4 +1,4 @@
-let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search']
+let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'search', 'monster-page']
 let renderedSmall = false;
 let renderedLarge = false;
 let renderedElder = false;
@@ -84,12 +84,12 @@ async function getMonsters(size) {
 
 
             elem.innerHTML += `
-            <div class="small-item flex align-center gap-3">
+            <div class="monster-tile flex align-center gap-3" onclick="viewMonster('${monsterList[i].name}')">
                 <img src="${iconSrc}" alt="Monster Icon">
-                <p>${monsterList[i].name.toUpperCase()} + ${monsterList[i].id}</p>
+                <p>${monsterList[i].name.toUpperCase()}</p>
                 <P>${monstLoc}</p>
-                <p class="small-res flex">RES: ${monstRes}</p>
-                <p class="small-wk flex">WEAK: ${monstWk}</p>
+                <p class="monster-res flex">RES: ${monstRes}</p>
+                <p class="monster-wk flex">WEAK: ${monstWk}</p>
             </div>
             `
         }
@@ -104,13 +104,15 @@ async function getMonsters(size) {
         renderedElder = true;
 }
 
-function viewLinks(id) {
-    let e = document.querySelector(`#${id}`);
+function viewItems(elem) {
+    let e = document.querySelector(`${elem}`);
     if (e.style.display === 'block') {
         e.style.display = 'none';
+        console.log(`${elem} is no longer showing.`);
     }
     else {
         e.style.display = 'block';
+        console.log(`${elem} is showing.`);
     }
 }
 
@@ -123,8 +125,32 @@ onresize = (event) => {
     }
     if (window.innerWidth >= 640) {
         document.querySelector('#search-bar').style.display = 'flex';
+        document.querySelector('.filter-list').style.display = 'block';
     }
     else {
         document.querySelector('#search-bar').style.display = 'none';
+        document.querySelector('.filter-list').style.display = 'none';
     }
 };
+
+function viewMonster(name) {
+    let elem = document.querySelector('#monster-page');
+
+    elem.innerHTML = `
+    <div id="left-col" class="flex-col align-center gap-3">
+        <img src='assets/icons/${name}>
+        <div>
+            <h2>Class</h2>
+            <h2>Locations</h2>
+        </div>
+    </div>
+    <div id="right-col" class="flex-col justify-between gap-3">
+        <h2>Resistances</h2>
+        <h2>Weaknesses</h2>
+        <h2>Recommended Protection</h2>
+    </div>
+    `
+    
+    changePage('monster-page');
+    console.log('yes');
+}

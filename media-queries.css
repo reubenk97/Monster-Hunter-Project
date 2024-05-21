@@ -25,6 +25,16 @@
     #search-bar input {
         display: flex;
     }
+
+    .list-headers img {
+        display: none;
+    }
+
+    .filter-list {
+        display: block;
+        position: initial;
+        border: none;
+    }
 }
 
 /* Laptop Viewports 1024px */
@@ -65,3 +75,5 @@
         padding: 1.5rem 2rem;
     }
 }
+
+/* 1268px min for every tile to line up */

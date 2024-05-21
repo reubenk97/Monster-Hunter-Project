@@ -197,7 +197,7 @@ main {
     /* left: 25%; */
 }
 
-/* Small Monsters */
+/* Monster Lists */
 .list-headers {
     border-bottom: 1px solid burlywood;
     color: burlywood;
@@ -210,8 +210,25 @@ main {
     color: white;
 }
 
+.list-headers img {
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.filter-list {
+    display: none;
+    position: absolute;
+    top: 9.75rem;
+    right: 0;
+    width: 100%;
+    background-color: darkslategray;
+    border-bottom: 1px solid burlywood;
+    text-align: center;
+    padding: 1rem 0;
+}
+
 .list-headers select {
-    border: 2px solid burlywood;
+    border: 1px solid burlywood;
     color: white;
     border-radius: 5px;
     font-size: 1.5rem;
@@ -227,42 +244,43 @@ main {
     display: none;
 }
 
-.small-item {
-    border: 3px outset burlywood;
-    border-radius: 1rem;
-    background-color: darkslategray;
-    color: burlywood;
-    padding: 1rem;
-    font-size: 1.5rem;
-}
-
-.small-item p {
-    width: 20%;
-}
-.small-item img {
-    height: 5rem;
-}
-
-.small-item:hover {
-    filter: brightness(80%);
-    transition: all 200ms ease-in;
-    cursor: pointer;
-}
-
-.small-res {
-    padding: 1rem 2rem 1rem 0;
-    color: #ffa733;
-}
-
-.small-wk {
-    padding: 1rem 2rem 1rem 0;
-    color: #02ff02;
-}
-
 #large-monsters {
     display: none;
 }
 
 #elder-monsters {
     display: none;
+}
+
+.monster-tile {
+    border: 3px outset burlywood;
+    border-radius: 1rem;
+    background-color: darkslategray;
+    color: burlywood;
+    padding: 1rem;
+    font-size: 1.5rem;
+    overflow: hidden;
+}
+
+.monster-tile p {
+    width: 20%;
+}
+.monster-tile img {
+    height: 5rem;
+}
+
+.monster-tile:hover {
+    filter: brightness(80%);
+    transition: all 200ms ease-in;
+    cursor: pointer;
+}
+
+.monster-res {
+    padding: 1rem 2rem 1rem 0;
+    color: #ffa733;
+}
+
+.monster-wk {
+    padding: 1rem 2rem 1rem 0;
+    color: #02ff02;
 }
