@@ -192,7 +192,7 @@ async function viewMonster(name) {
                     <li class='dragon'></li>
                 </ul>
             </div>
-            <div class="monster-eff-statuses">
+            <div class="monster-eff-statuses flex gap-1">
                 <ul class="statuses-labels">
                     <li>POISON</li>
                     <li>SLEEP</li>
@@ -213,7 +213,7 @@ async function viewMonster(name) {
     </div>
     `
 
-    // Grab the monster resistances
+    // Grab the monster resistances and conditions
     let monsterRes = [];
     for(let i =0; i<currMonster.resistances.length; i++) {
         if(currMonster.resistances[i].condition != null) {
@@ -223,23 +223,54 @@ async function viewMonster(name) {
             monsterRes.push(currMonster.resistances[i].element.toUpperCase());
         }
     }
+    
+    let docMonsterEff = ['fire','water','thunder','ice','dragon','poison','sleep','paralysis','blast','stun'];
 
     // Place an X if the monster has resistance to that element/status
-    let docMonsterEff = ['fire','water','thunder','ice','dragon','poison','sleep','paralysis','blast','stun'];
     for(let i = 0; i<monsterRes.length;i++) {
         for(let j = 0; j < docMonsterEff.length; j++) {
             if(monsterRes[i] === docMonsterEff[j].toUpperCase() + "!") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span>X</span>)';
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="x-icon">X</span>)';
             }
             else if(monsterRes[i] === docMonsterEff[j].toUpperCase()) {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span>X</span>';
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="x-icon">X</span>';
             }
         }
     }
     
-    // Grab the monster weaknesses and stars
+    // Grab the monster weaknesses, stars, conditions
     let monsterWeaks = [];
     for(let i=0;i<currMonster.weaknesses.length; i++) {
-        monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase());
+        if(currMonster.weaknesses[i].condition != null) {
+            monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase() + currMonster.weaknesses[i].stars + "!");
+        }
+        else {
+            monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase() + currMonster.weaknesses[i].stars);
+        }
+    }
+    
+    // Place stars based on effectiveness and parentheses if there are conditions 
+    // (eventually add tooltip for what the condition actually is)
+    for(let i =0;i < monsterWeaks.length;i++) {
+        for(let j=0;j<docMonsterEff.length; j++) {
+            if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1" + "!") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;</span>)'
+            }
+            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2" + "!") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;</span>)'
+            }
+            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3" + "!") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;&starf;</span>)'
+            }
+            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;</span>'
+            }
+            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;</span>'
+            }
+            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3") {
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;&starf;</span>'
+            }
+        }
     }
 }

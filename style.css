@@ -328,6 +328,10 @@ main {
     text-align: left;
 }
 
-.monster-eff span {
+.x-icon {
     color: red;
+}
+
+.star {
+    color: gold;
 }
