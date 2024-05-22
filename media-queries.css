@@ -55,8 +55,11 @@
     }
 
     .col-info {
-        gap: 1rem;
-        flex-direction: row;
+        flex-direction: row
+    }
+
+    .col-info p {
+        padding: 0 0.5rem;
     }
     
     #monster-page {

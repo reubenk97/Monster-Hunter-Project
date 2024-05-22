@@ -41,65 +41,138 @@ function changePage(id) {
 }
 
 async function getMonsters(size) {
-    let response = await fetch("https://mhw-db.com/monsters");
-    let monsterList = await response.json();
-    let elem = document.querySelector(`#${size}-monster-list`);
-
+    let response = {};
     // Prevent page from rendering extra tiles. Variables set to true at end of function.
     if (renderedSmall === true && size === 'small' || renderedLarge === true && size === 'large' || renderedElder === true && size === 'elder') {
         return;
     }
 
-    for (let i = 0; i < monsterList.length; i++) {
-        if (monsterList[i].type === size && monsterList[i].species != 'elder dragon' || size === 'elder' && monsterList[i].species === 'elder dragon') {
+    if (size === 'small') {
+        response = await fetch('https://mhw-db.com/monsters?q={"type":"small"}');
+    }
+    else if (size === 'large') {
+        response = await fetch('https://mhw-db.com/monsters?q={"type":"large"}');
+    }
+    else {
+        response = await fetch('https://mhw-db.com/monsters?q={"species":"elder dragon"}');
+    }
+    let monsterList = await response.json();
+    let elem = document.querySelector(`#${size}-monster-list`);
+
+    // Check if size is large and not elder dragon, since elder dragon is a species, not type. Only for large monster list, other lists are fine.
+    if (size === 'large') {
+        for (let i = 0; i < monsterList.length; i++) {
+            if (monsterList[i].species === 'elder dragon') {
+                continue;
+            }
+            else {
+                let iconSrc = "assets/icons/" + monsterList[i].name.toLowerCase() + ".png";
+                let monstLoc = '';
+                let monstRes = '';
+                let monstWk = [];
+
+                // Show monster location preview
+                if (monsterList[i].locations.length > 0) {
+                    monstLoc = monsterList[i].locations[0].name.toUpperCase();
+                }
+                else {
+                    monstLoc = 'NONE';
+                }
+
+                // Show monster resistance preview
+                if (monsterList[i].resistances.length > 0) {
+                    monstRes = monsterList[i].resistances[0].element.toUpperCase();
+                }
+                else
+                    monstRes = 'NONE';
+
+                // Populate monster weaknesses array with 3 stars
+                for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                    if (monsterList[i].weaknesses[j].stars === 3) {
+                        if(monstWk.length >= 2) {
+                            monstWk.push('...');
+                            break;
+                        }
+                        else {
+                            monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                        }
+                    }
+                }
+                if (monstWk.length <= 0) {
+                    monstWk.push('NONE');
+                }
+
+                elem.innerHTML += `
+                    <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                        <div class='col-bio'>
+                            <img src="${iconSrc}" alt="Monster Icon">
+                            <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                            <P class='monster-loc'>${monstLoc}</p>
+                        </div>
+                        <div class='col-info'>
+                            <p class="monster-res flex">${monstRes}</p>
+                            <p>|</p>
+                            <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                        </div>
+                        
+                    </div>
+                `
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < monsterList.length; i++) {
             let iconSrc = "assets/icons/" + monsterList[i].name.toLowerCase() + ".png";
-            let monstLoc = [];
-            let monstRes = [];
+            let monstLoc = '';
+            let monstRes = '';
             let monstWk = [];
 
-            // Populate monster location array
-            for (let j = 0; j < monsterList[i].locations.length; j++) {
-                monstLoc.pop();
-                monstLoc.push(monsterList[i].locations[j].name.toUpperCase());
+            // Show monster location preview
+            if (monsterList[i].locations.length > 0) {
+                monstLoc = monsterList[i].locations[0].name.toUpperCase();
             }
-            if (monsterList[i].locations.length <= 0) {
-                monstLoc.push('NONE');
-            }
-
-            // Populate monster resistances array
-            for (let j = 0; j < monsterList[i].resistances.length; j++) {
-                monstRes.pop();
-                monstRes.push(monsterList[i].resistances[j].element.toUpperCase());
-            }
-            if (monsterList[i].resistances.length <= 0) {
-                monstRes.push('NONE');
+            else {
+                monstLoc = 'NONE';
             }
 
-            // Populate monster weaknesses array
+            // Show monster resistance preview
+            if (monsterList[i].resistances.length > 0) {
+                monstRes = monsterList[i].resistances[0].element.toUpperCase();
+            }
+            else
+                monstRes = 'NONE';
+
+            // Populate monster weaknesses array with 3 stars
             for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
-                monstWk.pop();
-                monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                if (monsterList[i].weaknesses[j].stars === 3) {
+                    if(monstWk.length >= 2) {
+                        monstWk.push('...');
+                        break;
+                    }
+                    else {
+                        monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                    }
+                }
             }
-            if (monsterList[i].weaknesses.length <= 0) {
+            if (monstWk.length <= 0) {
                 monstWk.push('NONE');
             }
 
-
-
             elem.innerHTML += `
-            <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
-                <div class='col-bio'>
-                    <img src="${iconSrc}" alt="Monster Icon">
-                    <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
-                    <P class='monster-loc'>${monstLoc}</p>
+                <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                    <div class='col-bio'>
+                        <img src="${iconSrc}" alt="Monster Icon">
+                        <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                        <P class='monster-loc'>${monstLoc}</p>
+                    </div>
+                    <div class='col-info'>
+                        <p class="monster-res flex">${monstRes}</p>
+                        <p>|</p>
+                        <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                    </div>
+                    
                 </div>
-                <div class='col-info'>
-                    <p class="monster-res flex">RES: ${monstRes}</p>
-                    <p class="monster-wk flex">WEAK: ${monstWk}</p>
-                </div>
-                
-            </div>
-            `
+                `
         }
     }
 
@@ -157,16 +230,16 @@ async function viewMonster(name) {
 
     // Grab the monster locations and zones
     let monsterLocs = [];
-    for(let i =0; i<currMonster.locations.length; i++) {
-        monsterLocs.push(currMonster.locations[i].name.toUpperCase() + ' (' + currMonster.locations[i].zoneCount + ')' );
+    for (let i = 0; i < currMonster.locations.length; i++) {
+        monsterLocs.push(currMonster.locations[i].name.toUpperCase() + ' (' + currMonster.locations[i].zoneCount + ')');
     }
 
     // Grab monster ailments
     let monsterAilments = [];
-    for(let i=0;i<currMonster.ailments.length;i++) {
+    for (let i = 0; i < currMonster.ailments.length; i++) {
         monsterAilments.push(currMonster.ailments[i].name.toUpperCase());
     }
-    if(monsterAilments.length === 0) {
+    if (monsterAilments.length === 0) {
         monsterAilments.push('NONE');
     }
 
@@ -232,60 +305,60 @@ async function viewMonster(name) {
 
     // Grab the monster resistances and conditions
     let monsterRes = [];
-    for(let i =0; i<currMonster.resistances.length; i++) {
-        if(currMonster.resistances[i].condition != null) {
+    for (let i = 0; i < currMonster.resistances.length; i++) {
+        if (currMonster.resistances[i].condition != null) {
             monsterRes.push(currMonster.resistances[i].element.toUpperCase() + "!");
         }
         else {
             monsterRes.push(currMonster.resistances[i].element.toUpperCase());
         }
     }
-    
-    let docMonsterEff = ['fire','water','thunder','ice','dragon','poison','sleep','paralysis','blast','stun'];
+
+    let docMonsterEff = ['fire', 'water', 'thunder', 'ice', 'dragon', 'poison', 'sleep', 'paralysis', 'blast', 'stun'];
 
     // Place an X if the monster has resistance to that element/status
-    for(let i = 0; i<monsterRes.length;i++) {
-        for(let j = 0; j < docMonsterEff.length; j++) {
-            if(monsterRes[i] === docMonsterEff[j].toUpperCase() + "!") {
+    for (let i = 0; i < monsterRes.length; i++) {
+        for (let j = 0; j < docMonsterEff.length; j++) {
+            if (monsterRes[i] === docMonsterEff[j].toUpperCase() + "!") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="x-icon">&#x2715;</span>)';
             }
-            else if(monsterRes[i] === docMonsterEff[j].toUpperCase()) {
+            else if (monsterRes[i] === docMonsterEff[j].toUpperCase()) {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="x-icon">&#x2715;</span>';
             }
         }
     }
-    
+
     // Grab the monster weaknesses, stars, conditions
     let monsterWeaks = [];
-    for(let i=0;i<currMonster.weaknesses.length; i++) {
-        if(currMonster.weaknesses[i].condition != null) {
+    for (let i = 0; i < currMonster.weaknesses.length; i++) {
+        if (currMonster.weaknesses[i].condition != null) {
             monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase() + currMonster.weaknesses[i].stars + "!");
         }
         else {
             monsterWeaks.push(currMonster.weaknesses[i].element.toUpperCase() + currMonster.weaknesses[i].stars);
         }
     }
-    
+
     // Place stars based on effectiveness and parentheses if there are conditions 
     // (eventually add tooltip for what the condition actually is)
-    for(let i =0;i < monsterWeaks.length;i++) {
-        for(let j=0;j<docMonsterEff.length; j++) {
-            if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1" + "!") {
+    for (let i = 0; i < monsterWeaks.length; i++) {
+        for (let j = 0; j < docMonsterEff.length; j++) {
+            if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1" + "!") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;</span>)'
             }
-            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2" + "!") {
+            else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2" + "!") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;</span>)'
             }
-            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3" + "!") {
+            else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3" + "!") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;&starf;</span>)'
             }
-            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1") {
+            else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;</span>'
             }
-            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2") {
+            else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;</span>'
             }
-            else if(monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3") {
+            else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3") {
                 document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;&starf;</span>'
             }
         }
