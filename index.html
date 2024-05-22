@@ -20,8 +20,8 @@
             </div>
             <!-- Search Bar -->
             <div id="search-bar" class="flex align-center justify-between">
-                <input type="text" placeholder="Search">
-                <img src="assets/search.png" alt="Search Icon">
+                <input type="text" placeholder="Search" oninput="searchSite()">
+                <img src="assets/search.png" alt="Search Icon" onclick="changePage('search-page')">
             </div>
             <!-- Search Icon for Mobile -->
             <img id="mob-search" src="assets/search.png" alt="Search Icon" onclick="viewItems('#search-bar')">
@@ -175,6 +175,9 @@
 
             <!-- Individual Detailed Monster Page -->
             <div id="monster-page"></div>
+
+            <!-- Search Results Page -->
+            <div id="search-page"></div>
         </main>
 
         <script src="script.js"></script>

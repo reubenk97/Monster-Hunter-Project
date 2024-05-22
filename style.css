@@ -137,6 +137,7 @@ nav {
     position: relative;
     right: 2rem;
     height: 1.5rem;
+    cursor: pointer;
 }
 
 /* Nav Links */
@@ -341,4 +342,10 @@ main {
 
 .star {
     color: gold;
+}
+
+/* Search Page */
+#search-page {
+    color: burlywood;
+    text-align: center;
 }
