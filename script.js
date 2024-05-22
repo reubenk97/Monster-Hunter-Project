@@ -166,11 +166,14 @@ async function viewMonster(name) {
     for(let i=0;i<currMonster.ailments.length;i++) {
         monsterAilments.push(currMonster.ailments[i].name.toUpperCase());
     }
+    if(monsterAilments.length === 0) {
+        monsterAilments.push('NONE');
+    }
 
     elem.innerHTML = `
     <div class="monster-page-bio flex-col align-center">
         <div class="monster-pic">
-            <img src='assets/icons/${name}.png'>
+            <img src='assets/full-size/${name}.png'>
             <h2>${name.toUpperCase()}</h2>
         </div>
         <div>

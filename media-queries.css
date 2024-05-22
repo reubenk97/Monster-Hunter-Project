@@ -64,6 +64,10 @@
         justify-content: space-around;
     }
 
+    .monster-page-bio img {
+        width: 20rem;
+    }
+
     .monster-page-info {
         width: 50%;
     }
@@ -113,6 +117,7 @@
     
     #search-bar {
         margin: 0 10px;
+        padding: 1rem 1.5rem;
     }
 
     #search-bar input {
@@ -130,12 +135,11 @@
     #nav-links li {
         padding: 1.5rem 2rem;
     }
-
-    .monster-page-bio {
-        display: grid;
-    }
 }
 
+
+
+/* 4K Screens */
 @media (min-width: 1440px) {
 
     #nav-home img {
@@ -172,5 +176,9 @@
 
     #monster-page h3 {
         font-size: 3rem;
+    }
+
+    .monster-page-bio img {
+        width: 40rem;
     }
 }
