@@ -2,6 +2,7 @@ let pages = ['home', 'small-monsters', 'large-monsters', 'elder-monsters', 'mons
 let renderedSmall = false;
 let renderedLarge = false;
 let renderedElder = false;
+let searchInput = '';
 
 // API is missing many monsters, will manually populate here.
 let missingMonsters = [];
@@ -17,11 +18,11 @@ function changePage(id) {
             document.querySelector('#search-page').innerHTML = '';
         }
 
-        if(window.innerWidth < 640) {
+        if (window.innerWidth < 640) {
             document.querySelector('#nav-links').style.display = 'none';
             document.querySelector('#search-bar').style.display = 'none';
         }
-        else if(window.innerWidth < 1024) {
+        else if (window.innerWidth < 1024) {
             document.querySelector('#nav-links').style.display = 'none';
         }
 
@@ -39,7 +40,7 @@ function changePage(id) {
                 document.querySelector('#nav-elder').style.backgroundColor = '#253d3d';
                 getMonsters('elder');
             }
-            else if(pages[i] === 'search-page') {
+            else if (pages[i] === 'search-page') {
                 getSearch();
             }
         }
@@ -106,7 +107,7 @@ async function getMonsters(size) {
                 // Populate monster weaknesses array with 3 stars
                 for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
                     if (monsterList[i].weaknesses[j].stars === 3) {
-                        if(monstWk.length >= 2) {
+                        if (monstWk.length >= 2) {
                             monstWk.push('...');
                             break;
                         }
@@ -120,7 +121,7 @@ async function getMonsters(size) {
                 }
 
                 elem.innerHTML += `
-                    <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                    <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
                         <div class='col-bio'>
                             <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
                             <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
@@ -162,7 +163,7 @@ async function getMonsters(size) {
             // Populate monster weaknesses array with 3 stars
             for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
                 if (monsterList[i].weaknesses[j].stars === 3) {
-                    if(monstWk.length >= 2) {
+                    if (monstWk.length >= 2) {
                         monstWk.push('...');
                         break;
                     }
@@ -176,7 +177,7 @@ async function getMonsters(size) {
             }
 
             elem.innerHTML += `
-                <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
                     <div class='col-bio'>
                         <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
                         <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
@@ -203,15 +204,17 @@ async function getMonsters(size) {
 }
 
 function viewItems(elem) {
-    let e = document.querySelector(`${elem}`);
-    if (e.style.display === 'block') {
-        e.style.display = 'none';
-        console.log(`${elem} is no longer showing.`);
-    }
-    else {
-        e.style.display = 'block';
-        console.log(`${elem} is showing.`);
-    }
+    let e = document.querySelectorAll(`${elem}`);
+    e.forEach((element)=> {
+        if (element.style.display === 'block') {
+            element.style.display = 'none';
+            console.log(`${elem} is no longer showing.`);
+        }
+        else {
+            element.style.display = 'block';
+            console.log(`${elem} is showing.`);
+        }
+    });
 }
 
 // Show and hide nav menu, search bar, and filter menu based on window size. Basically a reset for the toggling on the hamburger menu, search icon, and filter icon.
@@ -225,14 +228,21 @@ onresize = (event) => {
 
     if (window.innerWidth >= 640) {
         document.querySelector('#search-bar').style.display = 'flex';
-        document.querySelector('.filter-list').style.display = 'block';
+        let e = document.querySelectorAll('.filter-list');
+        e.forEach((elem)=>{
+            elem.style.display = 'block';
+        });
     }
     else {
         document.querySelector('#search-bar').style.display = 'none';
-        document.querySelector('.filter-list').style.display = 'none';
+        let e = document.querySelectorAll('.filter-list');
+        e.forEach((elem)=>{
+            elem.style.display = 'none';
+        });
     }
 };
 
+// Currently has issue showing Xeno'jiiva and Safi'jiiva due to the ' in their names. Needs fix.
 async function viewMonster(name) {
     changePage('monster-page');
     let response = await fetch(`https://mhw-db.com/monsters?q={"name":"${name}"}`);
@@ -357,32 +367,31 @@ async function viewMonster(name) {
     for (let i = 0; i < monsterWeaks.length; i++) {
         for (let j = 0; j < docMonsterEff.length; j++) {
             if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1" + "!") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;</span>)'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;</span>)';
             }
             else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2" + "!") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;</span>)'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;</span>)';
             }
             else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3" + "!") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;&starf;</span>)'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="star">&starf;&starf;&starf;</span>)';
             }
             else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "1") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;</span>'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;</span>';
             }
             else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "2") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;</span>'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;</span>';
             }
             else if (monsterWeaks[i] === docMonsterEff[j].toUpperCase() + "3") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;&starf;</span>'
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="star">&starf;&starf;&starf;</span>';
             }
         }
     }
 }
 
 // Event listener for the search bar.
-var searchBar = document.querySelector('#search-bar input');
-var searchInput = '';
-searchBar.addEventListener('keypress', function(event) {
-    if(event.key === 'Enter') {
+let searchBar = document.querySelector('#search-bar input');
+searchBar.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
         event.preventDefault;
         changePage('search-page');
     }
@@ -393,6 +402,7 @@ function searchSite() {
     searchInput = document.querySelector('#search-bar input').value;
 }
 
+// Searches API for exact name. Will need to update for flexibility.
 async function getSearch() {
     let searchElem = document.querySelector('#search-page');
     let response = await fetch('https://mhw-db.com/monsters');
@@ -400,8 +410,8 @@ async function getSearch() {
     let foundMonster = false;
 
     console.log(searchInput);
-    for(let i =0; i < monsterList.length; i++) {
-        if(searchInput.toLowerCase() === monsterList[i].name.toLowerCase()) {
+    for (let i = 0; i < monsterList.length; i++) {
+        if (searchInput.toLowerCase() === monsterList[i].name.toLowerCase()) {
             let monstLoc = '';
             let monstRes = '';
             let monstWk = [];
@@ -425,7 +435,7 @@ async function getSearch() {
             // Populate monster weaknesses array with 3 stars
             for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
                 if (monsterList[i].weaknesses[j].stars === 3) {
-                    if(monstWk.length >= 2) {
+                    if (monstWk.length >= 2) {
                         monstWk.push('...');
                         break;
                     }
@@ -437,9 +447,9 @@ async function getSearch() {
             if (monstWk.length <= 0) {
                 monstWk.push('NONE');
             }
-            
+
             searchElem.innerHTML = `
-                <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
+                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
                     <div class='col-bio'>
                         <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
                         <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
@@ -454,10 +464,163 @@ async function getSearch() {
             `
         }
     }
-    
-    if(!foundMonster) {
+
+    if (!foundMonster) {
         searchElem.innerHTML = `
         <p>Search returned no results.</p>
         `
+    }
+}
+
+// Filter current list.
+async function filterList(elem, size) {
+    let currFilter = elem.value;
+    let type = '';
+    let filteredElem = document.querySelector(`#${size}-monster-list`);
+
+    let response = {};
+    if (size === 'small') {
+        response = await fetch('https://mhw-db.com/monsters?q={"type":"small"}');
+        renderedSmall = false;
+    }
+    else if (size === 'large') {
+        response = await fetch('https://mhw-db.com/monsters?q={"type":"large"}');
+        renderedLarge = false;
+    }
+    else {
+        response = await fetch('https://mhw-db.com/monsters?q={"species":"elder dragon"}');
+        renderedElder = false;
+    }
+    let monsterList = await response.json();
+
+    if (currFilter === 'FIRE' || currFilter === 'WATER' || currFilter === 'THUNDER' || currFilter === 'ICE' || currFilter === 'DRAGON' || currFilter === 'POISON' || currFilter === 'PARALYSIS' || currFilter === 'SLEEP' || currFilter === 'BLAST' || currFilter === 'STUN') {
+        type = 'element';
+    }
+    else if (currFilter === 'ANCIENT FOREST' || currFilter === 'WILDSPIRE WASTE' || currFilter === 'CORAL HIGHLANDS' || currFilter === 'ROTTEN VALE' || currFilter === "ELDER'S RECESS" || currFilter === 'HOARFROST REACH' || currFilter === 'CAVERNS OF EL DORADO' || currFilter === 'CONFLUENCE OF FATES' || currFilter === 'GREAT RAVINE' || currFilter === 'SECLUDED VALLEY') {
+        type = 'location';
+    }
+
+    // Clear the current list.
+    filteredElem.innerHTML = '';
+
+
+    if (type === 'element') {
+        for (let i = 0; i < monsterList.length; i++) {
+            for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                if (currFilter === monsterList[i].weaknesses[j].element.toUpperCase()) {
+                    if (monsterList[i].weaknesses[j].stars === 3) {
+                        let monstLoc = '';
+                        let monstRes = '';
+                        let monstWk = [];
+
+                        // Show monster location preview
+                        if (monsterList[i].locations.length > 0) {
+                            monstLoc = monsterList[i].locations[0].name.toUpperCase();
+                        }
+                        else {
+                            monstLoc = 'NONE';
+                        }
+
+                        // Show monster resistance preview
+                        if (monsterList[i].resistances.length > 0) {
+                            monstRes = monsterList[i].resistances[0].element.toUpperCase();
+                        }
+                        else
+                            monstRes = 'NONE';
+
+                        // Populate monster weaknesses array with 3 stars
+                        for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                            if (monsterList[i].weaknesses[j].stars === 3) {
+                                if (monstWk.length >= 2) {
+                                    monstWk.push('...');
+                                    break;
+                                }
+                                else {
+                                    monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                                }
+                            }
+                        }
+                        if (monstWk.length <= 0) {
+                            monstWk.push('NONE');
+                        }
+
+                        filteredElem.innerHTML += `
+                            <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
+                                <div class='col-bio'>
+                                    <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
+                                    <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                                    <P class='monster-loc'>${monstLoc}</p>
+                                </div>
+                                <div class='col-info'>
+                                    <p class="monster-res flex">${monstRes}</p>
+                                    <p>|</p>
+                                    <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                                </div>
+                            </div>
+                        `
+                    }
+                }
+            }
+        }
+    }
+    else if (type === 'location') {
+        for (let i = 0; i < monsterList.length; i++) {
+            for (let j = 0; j < monsterList[i].locations.length; j++) {
+                if (currFilter === monsterList[i].locations[j].name.toUpperCase()) {
+                    let monstLoc = '';
+                    let monstRes = '';
+                    let monstWk = [];
+
+                    // Show monster location preview
+                    if (monsterList[i].locations.length > 0) {
+                        monstLoc = monsterList[i].locations[0].name.toUpperCase();
+                    }
+                    else {
+                        monstLoc = 'NONE';
+                    }
+
+                    // Show monster resistance preview
+                    if (monsterList[i].resistances.length > 0) {
+                        monstRes = monsterList[i].resistances[0].element.toUpperCase();
+                    }
+                    else
+                        monstRes = 'NONE';
+
+                    // Populate monster weaknesses array with 3 stars
+                    for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                        if (monsterList[i].weaknesses[j].stars === 3) {
+                            if (monstWk.length >= 2) {
+                                monstWk.push('...');
+                                break;
+                            }
+                            else {
+                                monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                            }
+                        }
+                    }
+                    if (monstWk.length <= 0) {
+                        monstWk.push('NONE');
+                    }
+                    filteredElem.innerHTML += `
+                        <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
+                            <div class='col-bio'>
+                                <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
+                                <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                                <P class='monster-loc'>${monstLoc}</p>
+                            </div>
+                            <div class='col-info'>
+                                <p class="monster-res flex">${monstRes}</p>
+                                <p>|</p>
+                                <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+        }
+    }
+
+    if(currFilter === 'NONE') {
+        getMonsters(size);
     }
 }

@@ -242,6 +242,7 @@ main {
     font-size: 1.5rem;
     background-color: darkslategray;
     outline: none;
+    min-width: 15rem;
 }
 
 .list-headers option {

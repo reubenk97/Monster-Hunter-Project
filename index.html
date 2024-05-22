@@ -56,30 +56,18 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters">
-                                <option>NONE</option>
-                                <optgroup label="WEAKNESSES">
-                                    <option>FIRE</option>
-                                    <option>WATER</option>
-                                    <option>THUNDER</option>
-                                    <option>ICE</option>
-                                    <option>DRAGON</option>
-                                    <option>POISON</option>
-                                    <option>PARALYSIS</option>
-                                    <option>SLEEP</option>
-                                    <option>BLAST</option>
-                                    <option>STUN</option>
-                                </optgroup>
+                            <select class="filters" onchange="filterList(this,'small')">
+                                <option value="NONE">NONE</option>
                                 <optgroup label="LOCATION">
-                                    <option>ANCIENT FOREST</option>
-                                    <option>WILDSPIRE WASTE</option>
-                                    <option>CORAL HIGHLANDS</option>
-                                    <option>ROTTEN VALE</option>
-                                    <option>ELDER'S RECESS</option>
+                                    <option value="ANCIENT FOREST">ANCIENT FOREST</option>
+                                    <option value="WILDSPIRE WASTE">WILDSPIRE WASTE</option>
+                                    <option value="CORAL HIGHLANDS">CORAL HIGHLANDS</option>
+                                    <option value="ROTTEN VALE">ROTTEN VALE</option>
+                                    <option value="ELDER'S RECESS">ELDER'S RECESS</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option>ALPHA (A-Z)</option>
-                                    <option>ALPHA (Z-A)</option>
+                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
+                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -98,30 +86,32 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters">
-                                <option>NONE</option>
+                            <select class="filters" onchange="filterList(this,'large')">
+                                <option value="NONE">NONE</option>
                                 <optgroup label="WEAKNESSES">
-                                    <option>FIRE</option>
-                                    <option>WATER</option>
-                                    <option>THUNDER</option>
-                                    <option>ICE</option>
-                                    <option>DRAGON</option>
-                                    <option>POISON</option>
-                                    <option>PARALYSIS</option>
-                                    <option>SLEEP</option>
-                                    <option>BLAST</option>
-                                    <option>STUN</option>
+                                    <option value="FIRE">FIRE</option>
+                                    <option value="WATER">WATER</option>
+                                    <option value="THUNDER">THUNDER</option>
+                                    <option value="ICE">ICE</option>
+                                    <option value="DRAGON">DRAGON</option>
+                                    <option value="POISON">POISON</option>
+                                    <option value="PARALYSIS">PARALYSIS</option>
+                                    <option value="SLEEP">SLEEP</option>
+                                    <option value="BLAST">BLAST</option>
+                                    <option value="STUN">STUN</option>
                                 </optgroup>
                                 <optgroup label="LOCATION">
-                                    <option>ANCIENT FOREST</option>
-                                    <option>WILDSPIRE WASTE</option>
-                                    <option>CORAL HIGHLANDS</option>
-                                    <option>ROTTEN VALE</option>
-                                    <option>ELDER'S RECESS</option>
+                                    <option value="ANCIENT FOREST">ANCIENT FOREST</option>
+                                    <option value="WILDSPIRE WASTE">WILDSPIRE WASTE</option>
+                                    <option value="CORAL HIGHLANDS">CORAL HIGHLANDS</option>
+                                    <option value="ROTTEN VALE">ROTTEN VALE</option>
+                                    <option value="ELDER'S RECESS">ELDER'S RECESS</option>
+                                    <option value="HOARFROST REACH">HOARFROST REACH</option>
+                                    <option value="GUIDING LANDS">GUIDING LANDS</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option>ALPHA (A-Z)</option>
-                                    <option>ALPHA (Z-A)</option>
+                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
+                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -140,30 +130,35 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters">
-                                <option>NONE</option>
+                            <select class="filters" onchange="filterList(this,'elder')">
+                                <option value="NONE">NONE</option>
                                 <optgroup label="WEAKNESSES">
-                                    <option>FIRE</option>
-                                    <option>WATER</option>
-                                    <option>THUNDER</option>
-                                    <option>ICE</option>
-                                    <option>DRAGON</option>
-                                    <option>POISON</option>
-                                    <option>PARALYSIS</option>
-                                    <option>SLEEP</option>
-                                    <option>BLAST</option>
-                                    <option>STUN</option>
+                                    <option value="FIRE">FIRE</option>
+                                    <option value="WATER">WATER</option>
+                                    <option value="THUNDER">THUNDER</option>
+                                    <option value="ICE">ICE</option>
+                                    <option value="DRAGON">DRAGON</option>
+                                    <option value="POISON">POISON</option>
+                                    <option value="PARALYSIS">PARALYSIS</option>
+                                    <option value="SLEEP">SLEEP</option>
+                                    <option value="BLAST">BLAST</option>
+                                    <option value="STUN">STUN</option>
                                 </optgroup>
                                 <optgroup label="LOCATION">
-                                    <option>ANCIENT FOREST</option>
-                                    <option>WILDSPIRE WASTE</option>
-                                    <option>CORAL HIGHLANDS</option>
-                                    <option>ROTTEN VALE</option>
-                                    <option>ELDER'S RECESS</option>
+                                    <option value="ANCIENT FOREST">ANCIENT FOREST</option>
+                                    <option value="WILDSPIRE WASTE">WILDSPIRE WASTE</option>
+                                    <option value="CORAL HIGHLANDS">CORAL HIGHLANDS</option>
+                                    <option value="ROTTEN VALE">ROTTEN VALE</option>
+                                    <option value="ELDER'S RECESS">ELDER'S RECESS</option>
+                                    <option value="HOARFROST REACH">HOARFROST REACH</option>
+                                    <option value="CAVERNS OF EL DORADO">CAVERNS OF EL DORADO</option>
+                                    <option value="CONFLUENCE OF FATES">CONFLUENCE OF FATES</option>
+                                    <option value="GREAT RAVINE">GREAT RAVINE</option>
+                                    <option value="SECLUDED VALLEY">SECLUDED VALLEY</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option>ALPHA (A-Z)</option>
-                                    <option>ALPHA (Z-A)</option>
+                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
+                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
