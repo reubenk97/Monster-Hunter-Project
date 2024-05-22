@@ -58,12 +58,29 @@
         gap: 1rem;
         flex-direction: row;
     }
+    
+    #monster-page {
+        display: flex !important;
+        justify-content: space-around;
+    }
 }
 
 /* Next increase in font size */
 @media (min-width: 808px) {
     .monster-tile {
         font-size: 1.5rem;
+    }
+
+    #monster-page {
+        font-size: 1.5rem;
+    }
+
+    #monster-page h2 {
+        font-size: 2.5rem;
+    }
+
+    #monster-page h3 {
+        font-size: 2rem;
     }
 }
 
@@ -99,7 +116,7 @@
         position: initial;
         width: auto;
         border: none;
-        font-size: 1.5rem;
+        font-size: 1.45rem;
     }
 
     #nav-links li {
@@ -108,5 +125,44 @@
 
     .monster-page-bio {
         display: grid;
+    }
+}
+
+@media (min-width: 1440px) {
+
+    #nav-home img {
+        height: 3.5rem;
+    }
+    
+    #nav-home h1 {
+        font-size: 3.5rem;
+    }
+
+    #search-bar input {
+        font-size: 2.5rem;
+    }
+
+    #search-bar img {
+        height: 2.5rem;
+    }
+
+    #nav-links {
+        font-size: 2.45rem;
+    }
+
+    .monster-tile {
+        font-size: 2.5rem;
+    }
+
+    #monster-page {
+        font-size: 2.5rem;
+    }
+
+    #monster-page h2 {
+        font-size: 3.5rem;
+    }
+
+    #monster-page h3 {
+        font-size: 3rem;
     }
 }

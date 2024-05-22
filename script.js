@@ -166,8 +166,10 @@ async function viewMonster(name) {
 
     elem.innerHTML = `
     <div class="monster-page-bio flex-col align-center">
-        <img src='assets/icons/${name}.png'>
-        <h2>${name.toUpperCase()}</h2>
+        <div class="monster-pic">
+            <img src='assets/icons/${name}.png'>
+            <h2>${name.toUpperCase()}</h2>
+        </div>
         <div>
             <div class="monster-species">
                 <h3>SPECIES</h3>
@@ -215,8 +217,10 @@ async function viewMonster(name) {
                 </ul>
             </div>
         </div>
-        <h3>DANGER: MONSTER AILMENTS</h3>
-        <p class="monster-ailments">${monsterAilments.join(', ')}</p>
+        <div class="monster-ailments">
+            <h3>DANGER: MONSTER AILMENTS</h3>
+            <p>${monsterAilments.join(', ')}</p>
+        </div>
     </div>
     `
 
@@ -237,10 +241,10 @@ async function viewMonster(name) {
     for(let i = 0; i<monsterRes.length;i++) {
         for(let j = 0; j < docMonsterEff.length; j++) {
             if(monsterRes[i] === docMonsterEff[j].toUpperCase() + "!") {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="x-icon">X</span>)';
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '(<span class="x-icon">&#x2715;</span>)';
             }
             else if(monsterRes[i] === docMonsterEff[j].toUpperCase()) {
-                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="x-icon">X</span>';
+                document.querySelector(`.${docMonsterEff[j]}`).innerHTML += '<span class="x-icon">&#x2715;</span>';
             }
         }
     }
