@@ -4,7 +4,7 @@ let renderedLarge = false;
 let renderedElder = false;
 let searchInput = '';
 
-// API is missing many monsters, will manually populate here.
+// !API is missing many monsters, will manually keep track here.
 let missingMonsters = [];
 
 
@@ -27,21 +27,27 @@ function changePage(id) {
         }
 
         if (id === pages[i]) {
-            document.querySelector(`#${id}`).style.display = 'block';
             if (pages[i] === 'small-monsters') {
+                document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-small').style.backgroundColor = '#253d3d';
                 getMonsters('small');
             }
             else if (pages[i] === 'large-monsters') {
+                document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-large').style.backgroundColor = '#253d3d';
                 getMonsters('large');
             }
             else if (pages[i] === 'elder-monsters') {
+                document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-elder').style.backgroundColor = '#253d3d';
                 getMonsters('elder');
             }
             else if (pages[i] === 'search-page') {
+                document.querySelector(`#${id}`).style.display = 'flex';
                 getSearch();
+            }
+            else {
+                document.querySelector(`#${id}`).style.display = 'block';
             }
         }
         else {
@@ -205,7 +211,7 @@ async function getMonsters(size) {
 
 function viewItems(elem) {
     let e = document.querySelectorAll(`${elem}`);
-    e.forEach((element)=> {
+    e.forEach((element) => {
         if (element.style.display === 'block') {
             element.style.display = 'none';
             console.log(`${elem} is no longer showing.`);
@@ -229,20 +235,20 @@ onresize = (event) => {
     if (window.innerWidth >= 640) {
         document.querySelector('#search-bar').style.display = 'flex';
         let e = document.querySelectorAll('.filter-list');
-        e.forEach((elem)=>{
+        e.forEach((elem) => {
             elem.style.display = 'block';
         });
     }
     else {
         document.querySelector('#search-bar').style.display = 'none';
         let e = document.querySelectorAll('.filter-list');
-        e.forEach((elem)=>{
+        e.forEach((elem) => {
             elem.style.display = 'none';
         });
     }
 };
 
-// Currently has issue showing Xeno'jiiva and Safi'jiiva due to the ' in their names. Needs fix.
+// !Currently has issue showing Xeno'jiiva and Safi'jiiva due to the ' in their names. Needs fix.
 async function viewMonster(name) {
     changePage('monster-page');
     let response = await fetch(`https://mhw-db.com/monsters?q={"name":"${name}"}`);
@@ -397,19 +403,21 @@ searchBar.addEventListener('keypress', function (event) {
     }
 });
 
-// Eventually have autofill dropdown to show possible options
-function searchSite() {
+// !Eventually have autofill dropdown to show possible options, if possible.
+function updateSearchInput() {
     searchInput = document.querySelector('#search-bar input').value;
 }
 
-// Searches API for exact name. Will need to update for flexibility.
+// Searches API for exact name or beginning letters.
 async function getSearch() {
     let searchElem = document.querySelector('#search-page');
     let response = await fetch('https://mhw-db.com/monsters');
     let monsterList = await response.json();
     let foundMonster = false;
+    let halfSearch = false;
 
-    console.log(searchInput);
+    searchElem.innerHTML = '';
+
     for (let i = 0; i < monsterList.length; i++) {
         if (searchInput.toLowerCase() === monsterList[i].name.toLowerCase()) {
             let monstLoc = '';
@@ -448,7 +456,7 @@ async function getSearch() {
                 monstWk.push('NONE');
             }
 
-            searchElem.innerHTML = `
+            searchElem.innerHTML += `
                 <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
                     <div class='col-bio'>
                         <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
@@ -462,6 +470,69 @@ async function getSearch() {
                     </div>
                 </div>
             `
+        }
+        else {
+            for(let j = 0; j < searchInput.length; j++) {
+                if (searchInput.toLowerCase().split('')[j] === monsterList[i].name.toLowerCase().split('')[j]) {
+                    halfSearch = true;
+                }
+                else {
+                    halfSearch = false;
+                    break;
+                }
+            }
+            if(halfSearch) {
+                let monstLoc = '';
+                let monstRes = '';
+                let monstWk = [];
+                foundMonster = true;
+    
+                // Show monster location preview
+                if (monsterList[i].locations.length > 0) {
+                    monstLoc = monsterList[i].locations[0].name.toUpperCase();
+                }
+                else {
+                    monstLoc = 'NONE';
+                }
+    
+                // Show monster resistance preview
+                if (monsterList[i].resistances.length > 0) {
+                    monstRes = monsterList[i].resistances[0].element.toUpperCase();
+                }
+                else
+                    monstRes = 'NONE';
+    
+                // Populate monster weaknesses array with 3 stars
+                for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                    if (monsterList[i].weaknesses[j].stars === 3) {
+                        if (monstWk.length >= 2) {
+                            monstWk.push('...');
+                            break;
+                        }
+                        else {
+                            monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                        }
+                    }
+                }
+                if (monstWk.length <= 0) {
+                    monstWk.push('NONE');
+                }
+    
+                searchElem.innerHTML += `
+                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
+                    <div class='col-bio'>
+                        <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
+                        <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
+                        <P class='monster-loc'>${monstLoc}</p>
+                    </div>
+                    <div class='col-info'>
+                        <p class="monster-res flex">${monstRes}</p>
+                        <p>|</p>
+                        <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                    </div>
+                </div>
+                `
+            }
         }
     }
 
@@ -620,7 +691,7 @@ async function filterList(elem, size) {
         }
     }
 
-    if(currFilter === 'NONE') {
+    if (currFilter === 'NONE') {
         getMonsters(size);
     }
 }

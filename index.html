@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Monsters 101</title>
+        <title>Monsterfax</title>
         <link rel="stylesheet" href="style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,11 @@
             <!-- Home Page Icon/Name -->
             <div id="nav-home" class="flex align-center gap-2" onclick="changePage('home')">
                 <img src="assets/icons/fatalis.png" alt="Home Icon">
-                <h1>MONSTERS 101</h1>
+                <h1>MONSTERFAX</h1>
             </div>
             <!-- Search Bar -->
             <div id="search-bar" class="flex align-center justify-between">
-                <input type="text" placeholder="Search" oninput="searchSite()">
+                <input type="text" placeholder="Search" oninput="updateSearchInput()">
                 <img src="assets/search.png" alt="Search Icon" onclick="changePage('search-page')">
             </div>
             <!-- Search Icon for Mobile -->
@@ -172,7 +172,7 @@
             <div id="monster-page"></div>
 
             <!-- Search Results Page -->
-            <div id="search-page"></div>
+            <div id="search-page" class="flex-col gap-2"></div>
         </main>
 
         <script src="script.js"></script>
