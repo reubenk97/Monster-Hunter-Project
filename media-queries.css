@@ -63,6 +63,10 @@
         display: flex !important;
         justify-content: space-around;
     }
+
+    .monster-page-info {
+        width: 50%;
+    }
 }
 
 /* Next increase in font size */
@@ -81,6 +85,10 @@
 
     #monster-page h3 {
         font-size: 2rem;
+    }
+
+    .monster-eff {
+        gap: 1rem;
     }
 }
 

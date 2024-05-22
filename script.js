@@ -7,6 +7,9 @@ let missingMonsters = [];
 
 function changePage(id) {
     for (let i = 0; i < pages.length; i++) {
+        if (id != 'monster-page') {
+            document.querySelector('#monster-page').innerHTML = '';
+        }
         if (id === pages[i]) {
             document.querySelector(`#${id}`).style.display = 'block';
             if (pages[i] === 'small-monsters') {
