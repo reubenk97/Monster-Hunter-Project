@@ -4,8 +4,8 @@ let renderedLarge = false;
 let renderedElder = false;
 let searchInput = '';
 
-// !API is missing many monsters, will manually keep track here.
-let missingMonsters = [];
+// API is missing many monsters, manually keeping track here.
+let missingMonsters = ['Acidic Glavenus','Alatreon','Anteka','Banbaro','Barioth','Beotodus','Blackveil Vaal Hazak','Brachydios','Brute Tigrex','Coral Pukei-Pukei','Cortos','Deviljho','Ebony Odogaron','Fatalis','Frostfang Barioth','Fulgur Anjanath','Furious Rajang','Glavenus','Gold Rathian','Nargacuga','Nightshade Paolumu','Popo','Raging Brachydios','Ruiner Nergigante','Savage Deviljho','Scarred Yian Garuga','Seething Bazelgeuse','Shara Ishvalda','Shrieking Legiana','Silver Rathalos','Tigrex','Velkhana','Wulg','Yian Garuga'];
 
 
 function changePage(id) {
