@@ -32,22 +32,28 @@ function changePage(id) {
             if (pages[i] === 'small-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-small').style.backgroundColor = '#253d3d';
-                document.querySelector('#small-monsters select').value = 'NONE';
-                filterList(document.querySelector('#small-filters'),'small');
+                if(document.querySelector('#small-monsters select').value != 'NONE') {
+                    document.querySelector('#small-monsters select').value = 'NONE';
+                    filterList(document.querySelector('#small-filters'),'small');
+                }
                 getMonsters('small');
             }
             else if (pages[i] === 'large-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-large').style.backgroundColor = '#253d3d';
-                document.querySelector('#large-monsters select').value = 'NONE';
-                filterList(document.querySelector('#large-filters'),'large');
+                if(document.querySelector('#large-monsters select').value != 'NONE') {
+                    document.querySelector('#large-monsters select').value = 'NONE';
+                    filterList(document.querySelector('#large-filters'),'large');
+                }
                 getMonsters('large');
             }
             else if (pages[i] === 'elder-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-elder').style.backgroundColor = '#253d3d';
-                document.querySelector('#elder-monsters select').value = 'NONE';
-                filterList(document.querySelector('#elder-filters'),'elder');
+                if(document.querySelector('#elder-monsters select').value != 'NONE') {
+                    document.querySelector('#elder-monsters select').value = 'NONE';
+                    filterList(document.querySelector('#elder-filters'),'elder');
+                }
                 getMonsters('elder');
             }
             else if (pages[i] === 'search-page') {
