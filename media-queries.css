@@ -70,10 +70,6 @@
     .monster-page-bio img {
         width: 20rem;
     }
-
-    .monster-page-info {
-        width: 50%;
-    }
 }
 
 /* Next increase in font size */
@@ -120,7 +116,7 @@
     
     #search-bar {
         margin: 0 10px;
-        padding: 1rem 1.5rem;
+        padding: 0.5rem 1rem;
     }
 
     #search-bar input {
@@ -138,13 +134,16 @@
     #nav-links li {
         padding: 1.5rem 2rem;
     }
+
+    .monster-page-bio {
+        max-width: 40%;
+    }
 }
 
 
 
-/* 4K Screens */
-@media (min-width: 1440px) {
-
+/* Anything above 2000px */
+@media (min-width: 2000px) {
     #nav-home img {
         height: 3.5rem;
     }

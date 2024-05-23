@@ -195,16 +195,6 @@ main {
     /* object-fit: contain; */
 }
 
-#home p {
-    border-top: 2px dashed burlywood;
-    border-bottom: 2px dashed burlywood;
-    color: burlywood;
-    font-size: 2rem;
-    position: relative;
-    bottom: 60%;
-    /* left: 25%; */
-}
-
 /* Monster Lists */
 .list-headers {
     border-bottom: 1px solid burlywood;

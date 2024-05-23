@@ -5,7 +5,7 @@ let renderedElder = false;
 let searchInput = '';
 
 // API is missing many monsters, manually keeping track here.
-let missingMonsters = ['Acidic Glavenus','Alatreon','Anteka','Banbaro','Barioth','Beotodus','Blackveil Vaal Hazak','Brachydios','Brute Tigrex','Coral Pukei-Pukei','Cortos','Deviljho','Ebony Odogaron','Fatalis','Frostfang Barioth','Fulgur Anjanath','Furious Rajang','Glavenus','Gold Rathian','Nargacuga','Nightshade Paolumu','Popo','Raging Brachydios','Ruiner Nergigante','Savage Deviljho','Scarred Yian Garuga','Seething Bazelgeuse','Shara Ishvalda','Shrieking Legiana','Silver Rathalos','Tigrex','Velkhana','Wulg','Yian Garuga'];
+let missingMonsters = ['Acidic Glavenus', 'Alatreon', 'Anteka', 'Banbaro', 'Barioth', 'Beotodus', 'Blackveil Vaal Hazak', 'Brachydios', 'Brute Tigrex', 'Coral Pukei-Pukei', 'Cortos', 'Deviljho', 'Ebony Odogaron', 'Fatalis', 'Frostfang Barioth', 'Fulgur Anjanath', 'Furious Rajang', 'Glavenus', 'Gold Rathian', 'Nargacuga', 'Nightshade Paolumu', 'Popo', 'Raging Brachydios', 'Ruiner Nergigante', 'Savage Deviljho', 'Scarred Yian Garuga', 'Seething Bazelgeuse', 'Shara Ishvalda', 'Shrieking Legiana', 'Silver Rathalos', 'Tigrex', 'Velkhana', 'Wulg', 'Yian Garuga'];
 
 
 function changePage(id) {
@@ -16,6 +16,8 @@ function changePage(id) {
 
         if (id != 'search-page') {
             document.querySelector('#search-page').innerHTML = '';
+            document.querySelector('#search-bar input').value = '';
+            searchInput = '';
         }
 
         if (window.innerWidth < 640) {
@@ -125,9 +127,10 @@ async function getMonsters(size) {
                 if (monstWk.length <= 0) {
                     monstWk.push('NONE');
                 }
+                // !Need to fix the onclick for Xeno and Safi since they have ' in their names.
 
                 elem.innerHTML += `
-                    <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
+                    <div class="monster-tile flex align-center" onclick="viewMonster('${monsterList[i].name}')">
                         <div class='col-bio'>
                             <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
                             <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
@@ -182,8 +185,19 @@ async function getMonsters(size) {
                 monstWk.push('NONE');
             }
 
+            if(monsterList[i].name.includes("Xeno")) {
+                var monsterName = "Xenojiiva";
+                console.log('i am there')
+            }
+            else if(monsterList[i].name.includes("Safi")) {
+                var monsterName = "Safijiiva";
+            }
+            else {
+                var monsterName = monsterList[i].name;
+            }
+
             elem.innerHTML += `
-                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
+                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterName}")'>
                     <div class='col-bio'>
                         <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
                         <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
@@ -248,10 +262,21 @@ onresize = (event) => {
     }
 };
 
-// !Currently has issue showing Xeno'jiiva and Safi'jiiva due to the ' in their names. Needs fix.
+
 async function viewMonster(name) {
     changePage('monster-page');
-    let response = await fetch(`https://mhw-db.com/monsters?q={"name":"${name}"}`);
+    response = [];
+
+    // Manually change name of Safi and Xeno back to the API name.
+    if(name === 'Xenojiiva') {
+        name = "Xeno'jiiva";
+    }
+    else if(name === 'Safijiiva') {
+        name = "Safi'jiiva";
+    }
+
+    response = await fetch(`https://mhw-db.com/monsters?q={"name":"${name}"}`);
+
     let monsterArray = await response.json();
     let currMonster = monsterArray[0];
     console.log(currMonster);
@@ -275,7 +300,7 @@ async function viewMonster(name) {
     elem.innerHTML = `
     <div class="monster-page-bio flex-col align-center">
         <div class="monster-pic">
-            <img src='assets/full-size/${name}.png'>
+            <img src="assets/full-size/${name}.png">
             <h2>${name.toUpperCase()}</h2>
         </div>
         <div>
@@ -403,7 +428,7 @@ searchBar.addEventListener('keypress', function (event) {
     }
 });
 
-// !Eventually have autofill dropdown to show possible options, if possible.
+// !Eventually have autofill dropdown to show options, if possible.
 function updateSearchInput() {
     searchInput = document.querySelector('#search-bar input').value;
 }
@@ -419,7 +444,16 @@ async function getSearch() {
     searchElem.innerHTML = '';
 
     for (let i = 0; i < monsterList.length; i++) {
-        if (searchInput.toLowerCase() === monsterList[i].name.toLowerCase()) {
+        for (let j = 0; j < searchInput.length; j++) {
+            if (searchInput.toLowerCase().split('')[j] === monsterList[i].name.toLowerCase().split('')[j]) {
+                halfSearch = true;
+            }
+            else {
+                halfSearch = false;
+                break;
+            }
+        }
+        if (halfSearch) {
             let monstLoc = '';
             let monstRes = '';
             let monstWk = [];
@@ -469,70 +503,7 @@ async function getSearch() {
                         <p class="monster-wk flex">${monstWk.join(', ')}</p>
                     </div>
                 </div>
-            `
-        }
-        else {
-            for(let j = 0; j < searchInput.length; j++) {
-                if (searchInput.toLowerCase().split('')[j] === monsterList[i].name.toLowerCase().split('')[j]) {
-                    halfSearch = true;
-                }
-                else {
-                    halfSearch = false;
-                    break;
-                }
-            }
-            if(halfSearch) {
-                let monstLoc = '';
-                let monstRes = '';
-                let monstWk = [];
-                foundMonster = true;
-    
-                // Show monster location preview
-                if (monsterList[i].locations.length > 0) {
-                    monstLoc = monsterList[i].locations[0].name.toUpperCase();
-                }
-                else {
-                    monstLoc = 'NONE';
-                }
-    
-                // Show monster resistance preview
-                if (monsterList[i].resistances.length > 0) {
-                    monstRes = monsterList[i].resistances[0].element.toUpperCase();
-                }
-                else
-                    monstRes = 'NONE';
-    
-                // Populate monster weaknesses array with 3 stars
-                for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
-                    if (monsterList[i].weaknesses[j].stars === 3) {
-                        if (monstWk.length >= 2) {
-                            monstWk.push('...');
-                            break;
-                        }
-                        else {
-                            monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
-                        }
-                    }
-                }
-                if (monstWk.length <= 0) {
-                    monstWk.push('NONE');
-                }
-    
-                searchElem.innerHTML += `
-                <div class="monster-tile flex align-center" onclick='viewMonster("${monsterList[i].name}")'>
-                    <div class='col-bio'>
-                        <img src="assets/icons/${monsterList[i].name.toLowerCase()}.png" alt="Monster Icon">
-                        <p class='monster-name'>${monsterList[i].name.toUpperCase()}</p>
-                        <P class='monster-loc'>${monstLoc}</p>
-                    </div>
-                    <div class='col-info'>
-                        <p class="monster-res flex">${monstRes}</p>
-                        <p>|</p>
-                        <p class="monster-wk flex">${monstWk.join(', ')}</p>
-                    </div>
-                </div>
                 `
-            }
         }
     }
 
@@ -543,7 +514,7 @@ async function getSearch() {
     }
 }
 
-// Filter current list.
+// !Filter current list. Add sort for alphabetical.
 async function filterList(elem, size) {
     let currFilter = elem.value;
     let type = '';
