@@ -32,16 +32,22 @@ function changePage(id) {
             if (pages[i] === 'small-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-small').style.backgroundColor = '#253d3d';
+                document.querySelector('#small-monsters select').value = 'NONE';
+                filterList(document.querySelector('#small-filters'),'small');
                 getMonsters('small');
             }
             else if (pages[i] === 'large-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-large').style.backgroundColor = '#253d3d';
+                document.querySelector('#large-monsters select').value = 'NONE';
+                filterList(document.querySelector('#large-filters'),'large');
                 getMonsters('large');
             }
             else if (pages[i] === 'elder-monsters') {
                 document.querySelector(`#${id}`).style.display = 'block';
                 document.querySelector('#nav-elder').style.backgroundColor = '#253d3d';
+                document.querySelector('#elder-monsters select').value = 'NONE';
+                filterList(document.querySelector('#elder-filters'),'elder');
                 getMonsters('elder');
             }
             else if (pages[i] === 'search-page') {
@@ -185,11 +191,11 @@ async function getMonsters(size) {
                 monstWk.push('NONE');
             }
 
-            if(monsterList[i].name.includes("Xeno")) {
+            if (monsterList[i].name.includes("Xeno")) {
                 var monsterName = "Xenojiiva";
                 console.log('i am there')
             }
-            else if(monsterList[i].name.includes("Safi")) {
+            else if (monsterList[i].name.includes("Safi")) {
                 var monsterName = "Safijiiva";
             }
             else {
@@ -268,10 +274,10 @@ async function viewMonster(name) {
     response = [];
 
     // Manually change name of Safi and Xeno back to the API name.
-    if(name === 'Xenojiiva') {
+    if (name === 'Xenojiiva') {
         name = "Xeno'jiiva";
     }
-    else if(name === 'Safijiiva') {
+    else if (name === 'Safijiiva') {
         name = "Safi'jiiva";
     }
 
@@ -514,13 +520,13 @@ async function getSearch() {
     }
 }
 
-// !Filter current list. Add sort for alphabetical.
+// Filter current list.
 async function filterList(elem, size) {
     let currFilter = elem.value;
     let type = '';
     let filteredElem = document.querySelector(`#${size}-monster-list`);
-
     let response = {};
+    
     if (size === 'small') {
         response = await fetch('https://mhw-db.com/monsters?q={"type":"small"}');
         renderedSmall = false;
@@ -535,16 +541,27 @@ async function filterList(elem, size) {
     }
     let monsterList = await response.json();
 
+    // Remove elder dragons from the large response list.
+    if(size === 'large') {
+        monsterList = monsterList.filter((monst) => monst.species != 'elder dragon');
+    }
+    
+    // Establish type of filter to look for.
     if (currFilter === 'FIRE' || currFilter === 'WATER' || currFilter === 'THUNDER' || currFilter === 'ICE' || currFilter === 'DRAGON' || currFilter === 'POISON' || currFilter === 'PARALYSIS' || currFilter === 'SLEEP' || currFilter === 'BLAST' || currFilter === 'STUN') {
         type = 'element';
     }
     else if (currFilter === 'ANCIENT FOREST' || currFilter === 'WILDSPIRE WASTE' || currFilter === 'CORAL HIGHLANDS' || currFilter === 'ROTTEN VALE' || currFilter === "ELDER'S RECESS" || currFilter === 'HOARFROST REACH' || currFilter === 'CAVERNS OF EL DORADO' || currFilter === 'CONFLUENCE OF FATES' || currFilter === 'GREAT RAVINE' || currFilter === 'SECLUDED VALLEY') {
         type = 'location';
     }
-
+    else if (currFilter === 'ALPHA') {
+        type = 'alpha';
+    }
+    else if (currFilter === 'ZALPHA') {
+        type = 'zalpha';
+    }
+    
     // Clear the current list.
     filteredElem.innerHTML = '';
-
 
     if (type === 'element') {
         for (let i = 0; i < monsterList.length; i++) {
@@ -661,7 +678,131 @@ async function filterList(elem, size) {
             }
         }
     }
+    else if (type === 'alpha') {
+        let tempArr = [];
+        
+        for (let i = 0; i < monsterList.length; i++) {
+            tempArr.push(monsterList[i].name);
+        }
+        tempArr.sort();
 
+        for (let i = 0; i < tempArr.length; i++) {
+            let monstLoc = '';
+            let monstRes = '';
+            let monstWk = [];
+
+            // Show monster location preview
+            if (monsterList[i].locations.length > 0) {
+                monstLoc = monsterList[i].locations[0].name.toUpperCase();
+            }
+            else {
+                monstLoc = 'NONE';
+            }
+
+            // Show monster resistance preview
+            if (monsterList[i].resistances.length > 0) {
+                monstRes = monsterList[i].resistances[0].element.toUpperCase();
+            }
+            else
+                monstRes = 'NONE';
+
+            // Populate monster weaknesses array with 3 stars
+            for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                if (monsterList[i].weaknesses[j].stars === 3) {
+                    if (monstWk.length >= 2) {
+                        monstWk.push('...');
+                        break;
+                    }
+                    else {
+                        monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                    }
+                }
+            }
+            if (monstWk.length <= 0) {
+                monstWk.push('NONE');
+            }
+
+            filteredElem.innerHTML += `
+            <div class="monster-tile flex align-center" onclick='viewMonster("${tempArr[i]}")'>
+                <div class='col-bio'>
+                    <img src="assets/icons/${tempArr[i].toLowerCase()}.png" alt="Monster Icon">
+                    <p class='monster-name'>${tempArr[i].toUpperCase()}</p>
+                    <P class='monster-loc'>${monstLoc}</p>
+                </div>
+                <div class='col-info'>
+                    <p class="monster-res flex">${monstRes}</p>
+                    <p>|</p>
+                    <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                </div>
+            </div>
+            `
+        }
+    }
+    else if (type === 'zalpha') {
+        let tempArr = [];
+        console.log('i am here')
+        
+        for (let i = 0; i < monsterList.length; i++) {
+            tempArr.push(monsterList[i].name);
+        }
+        tempArr.sort();
+        tempArr.reverse();
+        console.log(tempArr)
+
+        for (let i = 0; i < tempArr.length; i++) {
+            let monstLoc = '';
+            let monstRes = '';
+            let monstWk = [];
+
+            // Show monster location preview
+            if (monsterList[i].locations.length > 0) {
+                monstLoc = monsterList[i].locations[0].name.toUpperCase();
+            }
+            else {
+                monstLoc = 'NONE';
+            }
+
+            // Show monster resistance preview
+            if (monsterList[i].resistances.length > 0) {
+                monstRes = monsterList[i].resistances[0].element.toUpperCase();
+            }
+            else
+                monstRes = 'NONE';
+
+            // Populate monster weaknesses array with 3 stars
+            for (let j = 0; j < monsterList[i].weaknesses.length; j++) {
+                if (monsterList[i].weaknesses[j].stars === 3) {
+                    if (monstWk.length >= 2) {
+                        monstWk.push('...');
+                        break;
+                    }
+                    else {
+                        monstWk.push(monsterList[i].weaknesses[j].element.toUpperCase());
+                    }
+                }
+            }
+            if (monstWk.length <= 0) {
+                monstWk.push('NONE');
+            }
+
+            filteredElem.innerHTML += `
+            <div class="monster-tile flex align-center" onclick='viewMonster("${tempArr[i]}")'>
+                <div class='col-bio'>
+                    <img src="assets/icons/${tempArr[i].toLowerCase()}.png" alt="Monster Icon">
+                    <p class='monster-name'>${tempArr[i].toUpperCase()}</p>
+                    <P class='monster-loc'>${monstLoc}</p>
+                </div>
+                <div class='col-info'>
+                    <p class="monster-res flex">${monstRes}</p>
+                    <p>|</p>
+                    <p class="monster-wk flex">${monstWk.join(', ')}</p>
+                </div>
+            </div>
+            `
+        }
+    }
+
+    // Reset the page if filter is none.
     if (currFilter === 'NONE') {
         getMonsters(size);
     }

@@ -56,7 +56,7 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters" onchange="filterList(this,'small')">
+                            <select id="small-filters" class="filters" onchange="filterList(this,'small')">
                                 <option value="NONE">NONE</option>
                                 <optgroup label="LOCATION">
                                     <option value="ANCIENT FOREST">ANCIENT FOREST</option>
@@ -66,8 +66,8 @@
                                     <option value="ELDER'S RECESS">ELDER'S RECESS</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
-                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
+                                    <option value="ALPHA">ALPHA (A-Z)</option>
+                                    <option value="ZALPHA">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -86,7 +86,7 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters" onchange="filterList(this,'large')">
+                            <select id="large-filters" class="filters" onchange="filterList(this,'large')">
                                 <option value="NONE">NONE</option>
                                 <optgroup label="WEAKNESSES">
                                     <option value="FIRE">FIRE</option>
@@ -110,8 +110,8 @@
                                     <option value="GUIDING LANDS">GUIDING LANDS</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
-                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
+                                    <option value="ALPHA">ALPHA (A-Z)</option>
+                                    <option value="ZALPHA">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -130,7 +130,7 @@
                         <img src="assets/filter.png" alt="Filter icon" onclick="viewItems('.filter-list')">
                         <div class="filter-list">
                             <label for="filters">FILTER:</label>
-                            <select class="filters" onchange="filterList(this,'elder')">
+                            <select id="elder-filters" class="filters" onchange="filterList(this,'elder')">
                                 <option value="NONE">NONE</option>
                                 <optgroup label="WEAKNESSES">
                                     <option value="FIRE">FIRE</option>
@@ -157,8 +157,8 @@
                                     <option value="SECLUDED VALLEY">SECLUDED VALLEY</option>
                                 </optgroup>
                                 <optgroup label="NAME">
-                                    <option value="ALPHA A-Z">ALPHA (A-Z)</option>
-                                    <option value="ALPHA Z-A">ALPHA (Z-A)</option>
+                                    <option value="ALPHA">ALPHA (A-Z)</option>
+                                    <option value="ZALPHA">ALPHA (Z-A)</option>
                                 </optgroup>
                             </select>
                         </div>
